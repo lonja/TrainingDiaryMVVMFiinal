@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="su.dreamteam.lonja.trainingdiaryfinal.viewmodel.MeasurementsViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="su.dreamteam.lonja.trainingdiaryfinal.ui.activity.MeasurementsActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_measurements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/no_measurements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.empty}">
+
+
+            <ImageView
+                android:id="@+id/image_no_measurements"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ruler"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/text_no_measurements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="@string/no_measurements" />
+
+            <TextView
+                android:id="@+id/noTasksAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.addMeasurement()}"
+                android:padding="16dp"
+                android:text="@string/no_measurements_add" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>
