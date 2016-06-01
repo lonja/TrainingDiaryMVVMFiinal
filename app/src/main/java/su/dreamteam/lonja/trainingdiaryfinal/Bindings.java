@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.google.common.math.DoubleMath;
 
+import org.w3c.dom.Text;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -26,11 +28,19 @@ public class Bindings {
     }
 
     @BindingConversion
-    public static String convertDateToString(Date value) {
+    public static String convertDateToStringDateTime(Date value) {
         if (value == null) {
             return "";
         }
         return DateFormat.format("dd MMMM yyyy, HH:mm", value).toString();
+    }
+
+    @BindingConversion
+    public static String convertDateToStringDate(Date value) {
+        if (value == null) {
+            return "";
+        }
+        return DateFormat.format("dd MMMM yyyy", value).toString();
     }
 
     @BindingAdapter("android:visibility")
