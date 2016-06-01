@@ -13,7 +13,7 @@ import io.realm.annotations.Required;
 
 @RealmClass
 @Parcel(implementations = AccountRealmProxy.class,
-        value = Parcel.Serialization.FIELD,
+        value = Parcel.Serialization.BEAN,
         analyze = Account.class)
 public class Account extends RealmObject {
 
@@ -24,27 +24,25 @@ public class Account extends RealmObject {
     private String name;
 
     @Required
-    private String sex;
+    private String gender;
 
     @Required
     private Date birthDate;
 
-    @Required
     private Double height;
 
-    @Required
     private Double weight;
 
     public Account() {
         id = UUID.randomUUID().toString();
-        sex = "male";
+        gender = "male";
     }
 
-    public Account(String name, String sex, Date birthDate, double height,
+    public Account(String name, String gender, Date birthDate, double height,
                    double weight) {
         this();
         this.name = name;
-        this.sex = sex;
+        this.gender = gender;
         this.birthDate = birthDate;
         this.height = height;
         this.weight = weight;
@@ -66,12 +64,12 @@ public class Account extends RealmObject {
         this.name = name;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Date getBirthDate() {
@@ -96,5 +94,10 @@ public class Account extends RealmObject {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    // TODO: 31.05.2016 create this
+    public boolean isNotEmpty() {
+        return false;
     }
 }
