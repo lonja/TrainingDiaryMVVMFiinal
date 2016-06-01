@@ -1,7 +1,5 @@
 package su.dreamteam.lonja.data.model;
 
-import android.text.format.DateFormat;
-
 import org.parceler.Parcel;
 
 import java.util.Date;
