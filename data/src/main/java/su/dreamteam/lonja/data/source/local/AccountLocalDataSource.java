@@ -40,7 +40,7 @@ public final class AccountLocalDataSource implements AccountDataSource {
             Account realmAccount = mRealm.createObject(Account.class);
             realmAccount.setId(account.getId());
             realmAccount.setName(account.getName());
-            realmAccount.setSex(account.getSex());
+            realmAccount.setGender(account.getGender());
             realmAccount.setBirthDate(account.getBirthDate());
             realmAccount.setHeight(account.getHeight());
             realmAccount.setWeight(account.getWeight());
