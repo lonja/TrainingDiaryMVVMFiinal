@@ -1,15 +1,16 @@
 package su.dreamteam.lonja.trainingdiaryfinal.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
-import com.github.paolorotolo.appintro.AppIntro2;
+import com.heinrichreimersoftware.materialintro.app.IntroActivity;
+import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
+import com.heinrichreimersoftware.materialintro.slide.Slide;
 
 import su.dreamteam.lonja.data.DataManager;
 import su.dreamteam.lonja.data.RealmHelper;
 import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
 import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.BirthDateFragment;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.GenderFragment;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.HeightFragment;
@@ -17,7 +18,7 @@ import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.NameFragment;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.WeightFragment;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.AccountWizardViewModel;
 
-public class NewAccountActivity extends AppIntro2 {
+public class NewAccountActivity extends IntroActivity {
 
     private AccountWizardViewModel mViewModel;
 
@@ -27,34 +28,45 @@ public class NewAccountActivity extends AppIntro2 {
         mViewModel = new AccountWizardViewModel(DataManager.getInstance(
                 MeasurementsLocalDataSource.getInstance(),
                 AccountLocalDataSource.getInstance()
-        ), RealmHelper.getInstance(this), this);
-        addSlide(NameFragment.newInstance(mViewModel));
-        addSlide(GenderFragment.newInstance(mViewModel));
-        addSlide(BirthDateFragment.newInstance(mViewModel));
-        addSlide(HeightFragment.newInstance(mViewModel));
-        addSlide(WeightFragment.newInstance(mViewModel));
+        ),
+                RealmHelper.getInstance(this),
+                this);
+        initSlides();
+        setSkipEnabled(false);
     }
 
-    @Override
-    public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
-        super.onSlideChanged(oldFragment, newFragment);
-        mViewModel.doneEditing();
+    private void initSlides() {
+        final Slide birthDateSlide = new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(BirthDateFragment.newInstance(mViewModel))
+                .build();
+        final Slide genderSlide = new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(GenderFragment.newInstance(mViewModel))
+                .build();
+        final Slide heightSlide = new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(HeightFragment.newInstance(mViewModel))
+                .build();
+        final Slide nameSlide = new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(NameFragment.newInstance(mViewModel))
+                .build();
+        final Slide weightSlide = new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(WeightFragment.newInstance(mViewModel))
+                .build();
+        addSlides(nameSlide, genderSlide, birthDateSlide, heightSlide, weightSlide);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        mViewModel.cancelEditing();
-    }
-
-    @Override
-    public boolean isSkipButtonEnabled() {
-        return false;
-    }
-
-    @Override
-    public void onDonePressed(Fragment currentFragment) {
-        mViewModel.doneEditing();
-        mViewModel.showProfile();
+    private void addSlides(Slide... slides) {
+        for (Slide slide : slides) {
+            addSlide(slide);
+        }
     }
 }
