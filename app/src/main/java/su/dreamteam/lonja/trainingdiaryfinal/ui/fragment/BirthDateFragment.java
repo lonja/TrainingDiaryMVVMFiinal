@@ -1,5 +1,6 @@
 package su.dreamteam.lonja.trainingdiaryfinal.ui.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,17 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.heinrichreimersoftware.materialintro.app.SlideFragment;
+
+import hugo.weaving.DebugLog;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.FragmentAccountBirthDateBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.AccountWizardViewModel;
 
-public class BirthDateFragment extends Fragment
+public class BirthDateFragment extends SlideFragment
         implements su.dreamteam.lonja.trainingdiaryfinal.ui.View<AccountWizardViewModel> {
 
     private FragmentAccountBirthDateBinding mBinding;
 
     private AccountWizardViewModel mViewModel;
 
+    @DebugLog
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -37,16 +42,28 @@ public class BirthDateFragment extends Fragment
     }
 
     @Override
+    public boolean canGoForward() {
+        return super.canGoForward();
+    }
+
+    @Override
+    public boolean canGoBackward() {
+        return super.canGoBackward();
+    }
+
+    @Override
     public void setViewModel(AccountWizardViewModel viewModel) {
         mViewModel = viewModel;
     }
 
+    @DebugLog
     @Override
     public void onResume() {
         super.onResume();
         mViewModel.subscribe();
     }
 
+    @DebugLog
     @Override
     public void onPause() {
         super.onPause();
