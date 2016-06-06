@@ -3,22 +3,33 @@ package su.dreamteam.lonja.trainingdiaryfinal.viewmodel;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableField;
+import android.databinding.adapters.TextViewBindingAdapter;
 import android.support.annotation.NonNull;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import su.dreamteam.lonja.data.DataManager;
 import su.dreamteam.lonja.data.RealmHelper;
 import su.dreamteam.lonja.data.model.Account;
+import su.dreamteam.lonja.trainingdiaryfinal.event.HeightValidationEvent;
+import su.dreamteam.lonja.trainingdiaryfinal.event.NameValidationEvent;
+import su.dreamteam.lonja.trainingdiaryfinal.event.WeightValidationEvent;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.AccountInfoActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class AccountWizardViewModel implements ViewModel {
+public class AccountWizardViewModel extends BaseObservable implements ViewModel {
 
     private DataManager mDataManager;
 
@@ -29,6 +40,53 @@ public class AccountWizardViewModel implements ViewModel {
     private CompositeSubscription mSubscriptions;
 
     private Context mContext;
+
+    private Pattern mPattern;
+
+    private Matcher mMatcher;
+
+    private final String NAME_PATTERN = "^[\\p{L}]+$";
+
+    public TextViewBindingAdapter.AfterTextChanged heightChanged = editable -> {
+        Double value = null;
+        if (Objects.equals(editable.toString(), "")) {
+            EventBus.getDefault().post(new HeightValidationEvent(false));
+            return;
+        } else {
+            value = Double.parseDouble(editable.toString());
+        }
+        if (value <= 250 && value >= 70) {
+            EventBus.getDefault().post(new HeightValidationEvent(true));
+            return;
+        }
+        EventBus.getDefault().post(new HeightValidationEvent(false));
+    };
+
+    public TextViewBindingAdapter.AfterTextChanged weightChanged = editable -> {
+        Double value = null;
+        if (Objects.equals(editable.toString(), "")) {
+            EventBus.getDefault().post(new HeightValidationEvent(false));
+            return;
+        } else {
+            value = Double.parseDouble(editable.toString());
+        }
+        if (value <= 250 && value >= 30) {
+            EventBus.getDefault().post(new WeightValidationEvent(true));
+            return;
+        }
+        EventBus.getDefault().post(new WeightValidationEvent(false));
+    };
+
+    public TextViewBindingAdapter.AfterTextChanged nameChanged = editable -> {
+        String value = editable.toString();
+        mPattern = Pattern.compile(NAME_PATTERN);
+        mMatcher = mPattern.matcher(value);
+        if (mMatcher.matches()) {
+            EventBus.getDefault().post(new NameValidationEvent(true));
+            return;
+        }
+        EventBus.getDefault().post(new NameValidationEvent(false));
+    };
 
     public AccountWizardViewModel(@NonNull DataManager dataManager,
                                   @NonNull RealmHelper realmHelper,
@@ -100,6 +158,7 @@ public class AccountWizardViewModel implements ViewModel {
                         Account newAccount = mRealmHelper.createRealmObject(Account.class);
                         Calendar calendar = new GregorianCalendar(1990, 5, 15);
                         newAccount.setBirthDate(calendar.getTime());
+                        newAccount.setGender("male");
                         return newAccount;
                     }
                     return account;
@@ -111,8 +170,45 @@ public class AccountWizardViewModel implements ViewModel {
         mSubscriptions.add(subscription);
     }
 
+    public String validateName() {
+        String name = account.get().getName();
+        if (name == null || Objects.equals(name, "")) {
+            return "Name cannot be empty";
+        }
+        return null;
+    }
+
+    public String validateHeight() {
+        Double height = account.get().getHeight();
+        if (height == null) {
+            return "Height cannot be empty";
+        } else if (height > 250) {
+            return "You're really so high";
+        } else if (height < 70) {
+            return "You're really so short";
+        }
+        return null;
+    }
+
+    public String validateWeight() {
+        Double weight = account.get().getWeight();
+        if (weight == null) {
+            return "Weight cannot be empty";
+        } else if (weight > 250) {
+            return "You're really so fat";
+        } else if (weight < 20) {
+            return "How are you keep alive?";
+        }
+        return null;
+    }
+
     @Override
     public void unsubscribe() {
         mSubscriptions.clear();
+    }
+
+    @Bindable
+    public boolean isMan() {
+        return Objects.equals(account.get().getGender(), "male");
     }
 }
