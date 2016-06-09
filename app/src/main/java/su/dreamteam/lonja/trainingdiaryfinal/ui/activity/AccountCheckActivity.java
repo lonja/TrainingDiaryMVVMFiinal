@@ -1,15 +1,15 @@
 package su.dreamteam.lonja.trainingdiaryfinal.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import su.dreamteam.lonja.data.DataManager;
 import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
 import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
 
-public class AccountCheckActivity extends AppCompatActivity {
+public class AccountCheckActivity extends Activity {
 
     DataManager mDataManager;
 
@@ -20,18 +20,17 @@ public class AccountCheckActivity extends AppCompatActivity {
                 AccountLocalDataSource.getInstance());
         mDataManager.getAccount()
                 .doOnNext(account -> {
-                    Intent intent;
-                    if (account == null) {
-                        intent = new Intent(this, NewAccountActivity.class);
-                        startActivity(intent);
-                        return;
-                    }
-                    intent = new Intent(this, AccountInfoActivity.class);
+                    Intent intent = new Intent(this, AccountInfoActivity.class);
                     startActivity(intent);
+                    finish();
                 })
                 .doOnError(throwable -> Toast.makeText(this, throwable.getMessage(),
                         Toast.LENGTH_LONG).show())
-                .doOnCompleted(this::finish)
+                .doOnCompleted(() -> {
+                    Intent intent = new Intent(this, NewAccountActivity.class);
+                    startActivity(intent);
+                    finish();
+                })
                 .subscribe();
     }
 }

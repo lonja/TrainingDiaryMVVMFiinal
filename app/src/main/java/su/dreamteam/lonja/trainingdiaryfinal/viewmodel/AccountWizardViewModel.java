@@ -17,10 +17,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import su.dreamteam.lonja.data.DataManager;
-import su.dreamteam.lonja.data.RealmHelper;
 import su.dreamteam.lonja.data.model.Account;
 import su.dreamteam.lonja.trainingdiaryfinal.event.HeightValidationEvent;
 import su.dreamteam.lonja.trainingdiaryfinal.event.NameValidationEvent;
@@ -32,8 +30,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AccountWizardViewModel extends BaseObservable implements ViewModel {
 
     private DataManager mDataManager;
-
-    private RealmHelper mRealmHelper;
 
     public final ObservableField<Account> account = new ObservableField<>();
 
@@ -89,12 +85,11 @@ public class AccountWizardViewModel extends BaseObservable implements ViewModel 
     };
 
     public AccountWizardViewModel(@NonNull DataManager dataManager,
-                                  @NonNull RealmHelper realmHelper,
                                   @NonNull Context context) {
         mDataManager = checkNotNull(dataManager);
-        mRealmHelper = checkNotNull(realmHelper);
         mContext = checkNotNull(context);
         mSubscriptions = new CompositeSubscription();
+        account.set(new Account());
     }
 
     public void setBirthDate() {
@@ -118,31 +113,10 @@ public class AccountWizardViewModel extends BaseObservable implements ViewModel 
         mContext.startActivity(intent);
     }
 
+    // FIXME: 09.06.2016 exception when done editing and account is empty
     public void doneEditing() {
-        try {
-            if (!account.get().isNotEmpty()) {
-                return;
-            }
-            mRealmHelper.commitTransaction();
-        } catch (Exception e) {
-            showError(e);
-        }
-    }
-
-    public void cancelEditing() {
-        try {
-            mRealmHelper.cancelTransaction();
-        } catch (Exception e) {
-            showError(e);
-        }
-    }
-
-    private void startEditing() {
-        try {
-            mRealmHelper.beginTransaction();
-        } catch (Exception e) {
-            showError(e);
-        }
+        mDataManager.saveAccount(account.get());
+        showProfile();
     }
 
     private void showError(Throwable e) {
@@ -151,55 +125,7 @@ public class AccountWizardViewModel extends BaseObservable implements ViewModel 
 
     @Override
     public void subscribe() {
-        Subscription subscription = mDataManager.getAccount()
-                .map(account -> {
-                    startEditing();
-                    if (account == null) {
-                        Account newAccount = mRealmHelper.createRealmObject(Account.class);
-                        Calendar calendar = new GregorianCalendar(1990, 5, 15);
-                        newAccount.setBirthDate(calendar.getTime());
-                        newAccount.setGender("male");
-                        return newAccount;
-                    }
-                    return account;
-                })
-                .filter(account -> account.isLoaded())
-                .doOnNext(this.account::set)
-                .doOnError(this::showError)
-                .subscribe();
-        mSubscriptions.add(subscription);
-    }
 
-    public String validateName() {
-        String name = account.get().getName();
-        if (name == null || Objects.equals(name, "")) {
-            return "Name cannot be empty";
-        }
-        return null;
-    }
-
-    public String validateHeight() {
-        Double height = account.get().getHeight();
-        if (height == null) {
-            return "Height cannot be empty";
-        } else if (height > 250) {
-            return "You're really so high";
-        } else if (height < 70) {
-            return "You're really so short";
-        }
-        return null;
-    }
-
-    public String validateWeight() {
-        Double weight = account.get().getWeight();
-        if (weight == null) {
-            return "Weight cannot be empty";
-        } else if (weight > 250) {
-            return "You're really so fat";
-        } else if (weight < 20) {
-            return "How are you keep alive?";
-        }
-        return null;
     }
 
     @Override

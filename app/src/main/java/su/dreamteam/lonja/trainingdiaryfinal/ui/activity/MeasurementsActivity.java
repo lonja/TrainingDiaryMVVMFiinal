@@ -1,5 +1,6 @@
 package su.dreamteam.lonja.trainingdiaryfinal.ui.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -71,6 +72,7 @@ public class MeasurementsActivity extends AppCompatActivity
 
         NavigationView navigationView = mBinding.navView;
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_measurements);
     }
 
     @Override
@@ -108,11 +110,12 @@ public class MeasurementsActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent intent;
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            intent = new Intent(this, AccountInfoActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_exercises) {
 
         } else if (id == R.id.nav_trainings) {

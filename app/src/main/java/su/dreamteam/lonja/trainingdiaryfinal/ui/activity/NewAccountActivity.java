@@ -7,7 +7,6 @@ import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.Slide;
 
 import su.dreamteam.lonja.data.DataManager;
-import su.dreamteam.lonja.data.RealmHelper;
 import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
 import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
@@ -29,7 +28,6 @@ public class NewAccountActivity extends IntroActivity {
                 MeasurementsLocalDataSource.getInstance(),
                 AccountLocalDataSource.getInstance()
         ),
-                RealmHelper.getInstance(this),
                 this);
         initSlides();
         setSkipEnabled(false);
@@ -68,5 +66,11 @@ public class NewAccountActivity extends IntroActivity {
         for (Slide slide : slides) {
             addSlide(slide);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewModel.doneEditing();
     }
 }

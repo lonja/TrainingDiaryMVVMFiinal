@@ -51,7 +51,7 @@ public class AddEditMeasurementActivity extends AppCompatActivity {
 
         mBinding.fabEditMeasurementDone.setOnClickListener(view -> {
             mViewModel.doneEditing();
-            this.finish();
+            finish();
         });
     }
 
