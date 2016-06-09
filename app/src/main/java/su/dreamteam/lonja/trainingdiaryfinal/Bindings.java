@@ -77,8 +77,11 @@ public class Bindings {
         if (Objects.equals(gender, "male")) {
             imageView.setImageResource(R.drawable.man_fit);
             return;
+        } else if (Objects.equals(gender, "female")) {
+            imageView.setImageResource(R.drawable.women_fit);
+            return;
         }
-        imageView.setImageResource(R.drawable.women_fit);
+        imageView.setImageResource(R.drawable.button_background);
     }
 
     @InverseBindingAdapter(attribute = "android:checkedButton", event = "android:checkedButtonAttrChanged")
