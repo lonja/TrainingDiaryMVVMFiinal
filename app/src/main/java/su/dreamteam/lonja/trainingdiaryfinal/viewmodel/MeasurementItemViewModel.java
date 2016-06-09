@@ -14,7 +14,7 @@ import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.AddEditMeasurementActiv
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class MeasurementItemViewModel extends BaseObservable implements ViewModel {
+public class MeasurementItemViewModel extends BaseObservable {
 
     private Context mContext;
 
@@ -29,16 +29,6 @@ public class MeasurementItemViewModel extends BaseObservable implements ViewMode
         mDataManager = checkNotNull(dataManager);
         checkNotNull(measurement);
         this.measurement.set(measurement);
-    }
-
-    @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-
     }
 
     public void onMeasurementClick() {
