@@ -30,7 +30,7 @@ public final class AccountLocalDataSource implements AccountDataSource {
         if (account != null) {
             return account.asObservable();
         }
-        return Observable.just(account);
+        return Observable.empty();
     }
 
     @Override

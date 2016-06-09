@@ -36,6 +36,7 @@ public class Account extends RealmObject {
     public Account() {
         id = UUID.randomUUID().toString();
         gender = "male";
+        birthDate = new Date();
     }
 
     public Account(String name, String gender, Date birthDate, double height,
