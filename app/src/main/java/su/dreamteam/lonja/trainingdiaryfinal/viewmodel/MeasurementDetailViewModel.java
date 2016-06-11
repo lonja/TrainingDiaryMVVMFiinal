@@ -95,6 +95,8 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
         activity.finish();
     }
 
+
+    // FIXME: 11.06.2016 crashing on save empty measurement attempt
     public void doneEditing() {
         try {
             if (!measurement.get().isNotEmpty()) {
