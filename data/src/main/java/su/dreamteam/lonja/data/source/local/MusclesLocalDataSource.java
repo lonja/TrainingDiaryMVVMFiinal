@@ -2,22 +2,46 @@ package su.dreamteam.lonja.data.source.local;
 
 import android.support.annotation.NonNull;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Muscle;
 import su.dreamteam.lonja.data.source.MusclesDataSource;
 
 public final class MusclesLocalDataSource implements MusclesDataSource {
 
+    private Realm mRealm;
+
+    private MusclesLocalDataSource() {
+        mRealm = Realm.getDefaultInstance();
+    }
+
+    private static MusclesLocalDataSource INSTANCE;
+
+    public static MusclesLocalDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MusclesLocalDataSource();
+        }
+        return INSTANCE;
+    }
 
     @Override
     public Observable<RealmResults<Muscle>> getMuscles() {
-        return null;
+        return mRealm.where(Muscle.class)
+                .findAllAsync()
+                .asObservable();
     }
 
     @Override
     public Observable<Muscle> getMuscle(String muscleId) {
-        return null;
+        Muscle muscle = mRealm.where(Muscle.class)
+                .equalTo("id", muscleId)
+                .findFirst();
+        if (muscle != null) {
+            return muscle.asObservable();
+        }
+        return Observable.error(new RealmException("Exercise not found"));
     }
 
     @Override
@@ -64,12 +88,35 @@ public final class MusclesLocalDataSource implements MusclesDataSource {
     }
 
     @Override
-    public Observable<Void> saveMuscle(@NonNull Muscle muscle) {
-        return null;
+    public Observable saveMuscle(@NonNull Muscle muscle) {
+        try {
+            mRealm.beginTransaction();
+            Muscle realmMuscle = mRealm.createObject(Muscle.class);
+            realmMuscle.setExercises(muscle.getExercises());
+            realmMuscle.setId(muscle.getId());
+            realmMuscle.setTitle(muscle.getTitle());
+            realmMuscle.setMuscleGroup(muscle.getMuscleGroup());
+            mRealm.commitTransaction();
+            return Observable.empty();
+        } catch (RealmException exception) {
+            mRealm.cancelTransaction();
+            return Observable.error(exception);
+        }
     }
 
     @Override
-    public Observable<Void> deleteMuscle(@NonNull String muscleId) {
-        return null;
+    public Observable deleteMuscle(@NonNull String muscleId) {
+        try {
+            mRealm.beginTransaction();
+            mRealm.where(Muscle.class)
+                    .equalTo("id", muscleId)
+                    .findFirst()
+                    .deleteFromRealm();
+            mRealm.commitTransaction();
+            return Observable.empty();
+        } catch (RealmException exception) {
+            mRealm.cancelTransaction();
+            return Observable.error(exception);
+        }
     }
 }

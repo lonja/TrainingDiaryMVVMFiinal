@@ -75,12 +75,12 @@ public final class MuscleGroupsLocalDataSource implements MuscleGroupsDataSource
     }
 
     @Override
-    public Observable<Void> saveMuscleGroup(@NonNull MuscleGroup muscleGroup) {
+    public Observable saveMuscleGroup(@NonNull MuscleGroup muscleGroup) {
         return null;
     }
 
     @Override
-    public Observable<Void> deleteMuscleGroup(@NonNull String muscleGroupId) {
+    public Observable deleteMuscleGroup(@NonNull String muscleGroupId) {
         return null;
     }
 }
