@@ -12,7 +12,7 @@
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="no_measurements">You have no measurements</string>
-    <string name="no_measurements_add">Add a measurement item +</string>
+    <string name="no_measurements_add">Add a measurement +</string>
     <string name="date">Date</string>
     <string name="comment">Comment</string>
     <string name="weight">Weight</string>
@@ -32,4 +32,18 @@
     <string name="comment_dialog_hint">ex. before/after workout</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="birth_date">Birth date</string>
+    <string name="name">Name</string>
+    <string name="height">Height</string>
+    <string name="gender">Gender</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="statistics">Statistics</string>
+    <string name="exercises">Exercises</string>
+    <string name="profile">Profile</string>
+    <string name="trainings">Trainings</string>
+    <string name="no_exercises">You have no exercises</string>
+    <string name="no_workouts">You have no workouts</string>
+    <string name="no_workouts_add">Add a workout +</string>
+    <string name="workouts">Workouts</string>
 </resources>
