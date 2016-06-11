@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
-                    android:title="@string/measurements"
+                    android:title="@{@string/measurements}"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
@@ -44,7 +44,6 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 tools:context="su.dreamteam.lonja.trainingdiaryfinal.ui.activity.MeasurementsActivity">
-
 
                 <FrameLayout
                     android:id="@+id/frame_content"
@@ -76,8 +75,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_measurements"
-            app:menu="@menu/activity_measurements_drawer" />
+            app:headerLayout="@layout/nav_main_header"
+            app:menu="@menu/main_drawer" />
 
     </android.support.v4.widget.DrawerLayout>
 </layout>
