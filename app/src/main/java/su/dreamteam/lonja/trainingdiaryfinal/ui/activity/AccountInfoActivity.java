@@ -18,10 +18,11 @@ import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityAccountInfoBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.AccountInfoViewModel;
+import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.StatisticsViewModel;
 
 public class AccountInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ActivityAccountInfoBinding mBinding;
+    private ActivityAccountInfoBinding mBinding;
 
     private AccountInfoViewModel mViewModel;
 
@@ -69,15 +70,21 @@ public class AccountInfoActivity extends AppCompatActivity implements Navigation
         if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_exercises) {
-
+            intent = new Intent(this, MeasurementsActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_trainings) {
-
+            intent = new Intent(this, WorkoutsActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_measurements) {
             intent = new Intent(this, MeasurementsActivity.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_statistics) {
-
+            intent = new Intent(this, StatisticsActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_settings) {
 
         }

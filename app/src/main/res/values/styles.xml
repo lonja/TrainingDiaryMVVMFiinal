@@ -13,6 +13,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Wizard">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:colorPrimary">#FFC107</item>
+        <item name="android:colorPrimaryDark">#FFA000</item>
+        <item name="android:colorAccent">#00BCD4</item>
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="android:textColorPrimaryInverse">#FFECB3</item>
+        <item name="android:textColorSecondary">#727272</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -117,13 +117,19 @@ public class MeasurementsActivity extends AppCompatActivity
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_exercises) {
-
+            intent = new Intent(this, ExercisesActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_trainings) {
-
+            intent = new Intent(this, WorkoutsActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_measurements) {
 
         } else if (id == R.id.nav_statistics) {
-
+            intent = new Intent(this, StatisticsActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_settings) {
 
         }
