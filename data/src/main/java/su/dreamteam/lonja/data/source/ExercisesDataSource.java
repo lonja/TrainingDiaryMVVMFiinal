@@ -14,8 +14,8 @@ public interface ExercisesDataSource {
 
     Observable<Exercise> getExercise(int exercise);
 
-    Observable<Void> saveExercise(@NonNull Exercise exercise);
+    Observable saveExercise(@NonNull Exercise exercise);
 
-    Observable<Void> deleteExercise(@NonNull String exerciseId);
+    Observable deleteExercise(@NonNull String exerciseId);
 
 }

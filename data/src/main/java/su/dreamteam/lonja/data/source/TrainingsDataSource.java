@@ -13,7 +13,7 @@ public interface TrainingsDataSource {
 
     Observable<Training> getTraining(String trainingId);
 
-    Observable<Void> saveTraining(@NonNull Training training);
+    Observable saveTraining(@NonNull Training training);
 
-    Observable<Void> deleteTraining(@NonNull String trainingId);
+    Observable deleteTraining(@NonNull String trainingId);
 }

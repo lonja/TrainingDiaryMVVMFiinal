@@ -14,8 +14,8 @@ public interface MuscleGroupsDataSource {
 
     Observable<MuscleGroup> getMuscleGroup(int muscleGroup);
 
-    Observable<Void> saveMuscleGroup(@NonNull MuscleGroup muscleGroup);
+    Observable saveMuscleGroup(@NonNull MuscleGroup muscleGroup);
 
-    Observable<Void> deleteMuscleGroup(@NonNull String muscleGroupId);
+    Observable deleteMuscleGroup(@NonNull String muscleGroupId);
 
 }

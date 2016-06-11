@@ -14,8 +14,8 @@ public interface MusclesDataSource {
 
     Observable<Muscle> getMuscle(int muscle);
 
-    Observable<Void> saveMuscle(@NonNull Muscle muscle);
+    Observable saveMuscle(@NonNull Muscle muscle);
 
-    Observable<Void> deleteMuscle(@NonNull String muscleId);
+    Observable deleteMuscle(@NonNull String muscleId);
 
 }
