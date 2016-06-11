@@ -1,13 +1,13 @@
 package su.dreamteam.lonja.data.model;
 
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 
 import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 
 public class MuscleGroup extends RealmObject {
 
@@ -25,8 +25,8 @@ public class MuscleGroup extends RealmObject {
     @PrimaryKey
     private String id;
 
-    @Required
-    private String title;
+    @StringRes
+    private int title;
 
     private RealmList<Muscle> muscles;
 
@@ -39,7 +39,7 @@ public class MuscleGroup extends RealmObject {
         id = UUID.randomUUID().toString();
     }
 
-    public MuscleGroup(String title, RealmList<Muscle> muscles, int imageDrawableRes, String description) {
+    public MuscleGroup(@StringRes int title, RealmList<Muscle> muscles, int imageDrawableRes, String description) {
         this();
         this.title = title;
         this.muscles = muscles;
@@ -55,11 +55,11 @@ public class MuscleGroup extends RealmObject {
         this.id = id;
     }
 
-    public String getTitle() {
+    public int getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@StringRes int title) {
         this.title = title;
     }
 

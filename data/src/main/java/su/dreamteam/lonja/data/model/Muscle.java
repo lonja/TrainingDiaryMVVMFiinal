@@ -1,5 +1,7 @@
 package su.dreamteam.lonja.data.model;
 
+import android.support.annotation.StringRes;
+
 import java.util.UUID;
 
 import io.realm.RealmList;
@@ -26,7 +28,8 @@ public class Muscle extends RealmObject {
     private String id;
 
     @Required
-    private String title;
+    @StringRes
+    private int title;
 
     private MuscleGroup muscleGroup;
 
@@ -36,7 +39,7 @@ public class Muscle extends RealmObject {
         id = UUID.randomUUID().toString();
     }
 
-    public Muscle(String title, MuscleGroup muscleGroup, RealmList<Exercise> exercises) {
+    public Muscle(@StringRes int title, MuscleGroup muscleGroup, RealmList<Exercise> exercises) {
         this();
         this.title = title;
         this.muscleGroup = muscleGroup;
@@ -51,11 +54,11 @@ public class Muscle extends RealmObject {
         this.id = id;
     }
 
-    public String getTitle() {
+    public int getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@StringRes int title) {
         this.title = title;
     }
 

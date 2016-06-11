@@ -15,22 +15,29 @@ public class Approach extends RealmObject {
 
     private Exercise exercise;
 
+    private String comment;
+
     @Required
     private Integer reps;
 
     @Required
     private Integer weight;
 
+    private Training training;
+
     public Approach() {
         id = UUID.randomUUID().toString();
     }
 
-    public Approach(Exercise exercise, Integer reps, Integer weight) {
+    public Approach(Exercise exercise, String comment, Integer reps, Integer weight, Training training) {
         this();
         this.exercise = exercise;
+        this.comment = comment;
         this.reps = reps;
         this.weight = weight;
+        this.training = training;
     }
+
 
     public String getId() {
         return id;
@@ -62,5 +69,21 @@ public class Approach extends RealmObject {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }

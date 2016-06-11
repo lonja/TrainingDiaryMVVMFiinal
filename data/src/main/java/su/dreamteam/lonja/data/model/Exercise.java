@@ -1,5 +1,7 @@
 package su.dreamteam.lonja.data.model;
 
+import android.support.annotation.StringRes;
+
 import java.util.UUID;
 
 import io.realm.RealmList;
@@ -12,20 +14,18 @@ import io.realm.annotations.Required;
 @RealmClass
 public class Exercise extends RealmObject {
 
-    static {
-        final int BENCH_PRESS = 0;
-        final int SQUATS = 1;
-        final int DEADLIFT = 2;
-        final int BENT_OVER_ROW = 3;
-        final int PULL_UPS = 4;
-    }
+    public static final int BENCH_PRESS = 0;
+    public static final int SQUATS = 1;
+    public static final int DEADLIFT = 2;
+    public static final int BENT_OVER_ROW = 3;
+    public static final int PULL_UPS = 4;
 
     @PrimaryKey
     private String id;
 
-    @Required
     @Index
-    private String title;
+    @StringRes
+    private int title;
 
     private MuscleGroup group;
 
@@ -39,7 +39,7 @@ public class Exercise extends RealmObject {
         id = UUID.randomUUID().toString();
     }
 
-    public Exercise(String title, MuscleGroup group, RealmList<Muscle> muscles, RealmList<Muscle> synergists) {
+    public Exercise(@StringRes int title, MuscleGroup group, RealmList<Muscle> muscles, RealmList<Muscle> synergists) {
         this();
         this.title = title;
         this.group = group;
@@ -56,11 +56,11 @@ public class Exercise extends RealmObject {
         this.id = id;
     }
 
-    public String getTitle() {
+    public int getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@StringRes int title) {
         this.title = title;
     }
 
