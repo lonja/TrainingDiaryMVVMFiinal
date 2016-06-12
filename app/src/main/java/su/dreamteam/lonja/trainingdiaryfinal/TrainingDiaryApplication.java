@@ -121,7 +121,39 @@ public class TrainingDiaryApplication extends Application {
             trapezius.setMuscleGroup(back);
             trapezius.setTitle(R.string.trapezius);
 
-            RealmList<Muscle> backMuscles = new RealmList<>(trapezius);
+            Muscle erectorSpinae = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            erectorSpinae.setMuscleGroup(back);
+            erectorSpinae.setTitle(R.string.erector_spinae);
+
+            Muscle latissimusDorsi = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            latissimusDorsi.setMuscleGroup(back);
+            latissimusDorsi.setTitle(R.string.latissimus_dorsi);
+
+            Muscle teresMajor = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            teresMajor.setMuscleGroup(back);
+            teresMajor.setTitle(R.string.teres_major);
+
+            Muscle teresMinor = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            teresMinor.setMuscleGroup(back);
+            teresMinor.setTitle(R.string.teres_minor);
+
+            Muscle infraspinatus = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            infraspinatus.setMuscleGroup(back);
+            infraspinatus.setTitle(R.string.infraspinatus);
+
+            Muscle rhomboidMajor = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            rhomboidMajor.setMuscleGroup(back);
+            rhomboidMajor.setTitle(R.string.rhomboid_major);
+
+            RealmList<Muscle> backMuscles = new RealmList<>(
+                    trapezius,
+                    erectorSpinae,
+                    latissimusDorsi,
+                    teresMajor,
+                    teresMinor,
+                    infraspinatus,
+                    rhomboidMajor
+            );
             shoulder.setMuscles(backMuscles);
 
             MuscleGroup thighs = realm.createObject(MuscleGroup.class, UUID.randomUUID().toString());
@@ -161,6 +193,26 @@ public class TrainingDiaryApplication extends Application {
             hamstrings.setMuscles(hamstringsMuscles);
 
 
+            MuscleGroup glutes = realm.createObject(MuscleGroup.class, UUID.randomUUID().toString());
+            glutes.setImageDrawableRes(R.drawable.glutes);
+            glutes.setTitle(R.string.glutes);
+            glutes.setDescription(R.string.glutes_description);
+
+            Muscle gluteusMaximus = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            gluteusMaximus.setTitle(R.string.gluteus_maximus);
+            gluteusMaximus.setMuscleGroup(glutes);
+
+            Muscle gluteusMedius = realm.createObject(Muscle.class, UUID.randomUUID().toString());
+            gluteusMedius.setTitle(R.string.gluteus_medius);
+            gluteusMedius.setMuscleGroup(glutes);
+
+            RealmList<Muscle> glutesMuscles = new RealmList<>(
+                    gluteusMaximus,
+                    gluteusMedius
+            );
+            glutes.setMuscles(glutesMuscles);
+
+
             Exercise benchPress = realm.createObject(Exercise.class, UUID.randomUUID().toString());
             RealmList<Muscle> benchMuscles = new RealmList<>(
                     pectoralisMajor,
@@ -177,34 +229,59 @@ public class TrainingDiaryApplication extends Application {
             benchPress.setGroup(chest);
 
             Exercise squats = realm.createObject(Exercise.class, UUID.randomUUID().toString());
-            RealmList<Muscle> squatsMuscles = new RealmList<>();
-            RealmList<Muscle> squatsSynergistsMuscles = new RealmList<>();
+            RealmList<Muscle> squatsMuscles = new RealmList<>(
+                    quadriceps,
+                    gluteusMaximus
+            );
+            RealmList<Muscle> squatsSynergistsMuscles = new RealmList<>(
+                    gluteusMedius,
+                    semimembranosus,
+                    semitendinosus,
+                    bicepsFemoris,
+                    erectorSpinae
+            );
             squats.setTitle(R.string.squats);
             squats.setMuscles(squatsMuscles);
             squats.setSynergists(squatsSynergistsMuscles);
             squats.setGroup(thighs);
 
+            Exercise deadLift = realm.createObject(Exercise.class, UUID.randomUUID().toString());
+            RealmList<Muscle> deadLiftMuscles = new RealmList<>(
+                    erectorSpinae,
+                    bicepsFemoris,
+                    gluteusMaximus,
+                    gluteusMedius,
+                    trapezius
+            );
+            RealmList<Muscle> deadLiftSynergistsMuscles = new RealmList<>(
+                    quadriceps,
+                    bicepsLongHead,
+                    bicepsShortHead
+            );
+            deadLift.setTitle(R.string.deadlift);
+            deadLift.setMuscles(deadLiftMuscles);
+            deadLift.setSynergists(deadLiftSynergistsMuscles);
+            deadLift.setGroup(back);
+
+            Exercise pullUps = realm.createObject(Exercise.class, UUID.randomUUID().toString());
+            RealmList<Muscle> pullUpsMuscles = new RealmList<>(
+                    latissimusDorsi,
+                    brachialis,
+                    bicepsLongHead,
+                    bicepsShortHead,
+                    teresMajor,
+                    rhomboidMajor
+            );
+            RealmList<Muscle> pullUpsSynergistsMuscles = new RealmList<>(
+                    shoulderPosteriorHead,
+                    erectorSpinae,
+                    tricepsLongHead
+            );
+            pullUps.setTitle(R.string.pull_ups);
+            pullUps.setMuscles(pullUpsMuscles);
+            pullUps.setSynergists(pullUpsSynergistsMuscles);
+            pullUps.setGroup(back);
         };
-
-    }
-
-    public void createBiceps(Realm realm) {
-
-    }
-
-    public void createTriceps(Realm realm) {
-
-    }
-
-    public void createChest(Realm realm) {
-
-    }
-
-    public void createShoulders(Realm realm) {
-
-    }
-
-    public void createBack(Realm realm) {
 
     }
 
