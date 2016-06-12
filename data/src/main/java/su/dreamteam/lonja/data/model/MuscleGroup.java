@@ -33,13 +33,14 @@ public class MuscleGroup extends RealmObject {
     @DrawableRes
     private int imageDrawableRes;
 
-    private String description;
+    @StringRes
+    private int description;
 
     public MuscleGroup() {
         id = UUID.randomUUID().toString();
     }
 
-    public MuscleGroup(@StringRes int title, RealmList<Muscle> muscles, int imageDrawableRes, String description) {
+    public MuscleGroup(@StringRes int title, RealmList<Muscle> muscles, int imageDrawableRes, int description) {
         this();
         this.title = title;
         this.muscles = muscles;
@@ -79,11 +80,11 @@ public class MuscleGroup extends RealmObject {
         this.imageDrawableRes = imageDrawableRes;
     }
 
-    public String getDescription() {
+    public int getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@StringRes int description) {
         this.description = description;
     }
 }

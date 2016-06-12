@@ -27,7 +27,6 @@ public class Muscle extends RealmObject {
     @PrimaryKey
     private String id;
 
-    @Required
     @StringRes
     private int title;
 
