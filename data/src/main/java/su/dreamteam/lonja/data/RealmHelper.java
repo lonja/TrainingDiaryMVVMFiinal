@@ -73,8 +73,11 @@ public final class RealmHelper {
 
     private void configure(Context context, Realm.Transaction initialData) {
         RealmConfiguration configuration = new RealmConfiguration.Builder(context)
-                .initialData(initialData)
                 .build();
         Realm.setDefaultConfiguration(configuration);
+        final Realm realm = Realm.getDefaultInstance();
+        if (realm.isEmpty()) {
+            realm.executeTransactionAsync(initialData, realm::close);
+        }
     }
 }
