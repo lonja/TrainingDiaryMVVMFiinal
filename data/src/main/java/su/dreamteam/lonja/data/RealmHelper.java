@@ -18,7 +18,16 @@ public final class RealmHelper {
         try {
             mRealm = Realm.getDefaultInstance();
         } catch (NullPointerException e) {
-            configure(context);
+            configure(context, null);
+            mRealm = Realm.getDefaultInstance();
+        }
+    }
+
+    private RealmHelper(Context context, Realm.Transaction initialData) {
+        try {
+            mRealm = Realm.getDefaultInstance();
+        } catch (NullPointerException e) {
+            configure(context, initialData);
             mRealm = Realm.getDefaultInstance();
         }
     }
@@ -26,6 +35,13 @@ public final class RealmHelper {
     public static RealmHelper getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = new RealmHelper(context);
+        }
+        return INSTANCE;
+    }
+
+    public static RealmHelper getInstance(Context context, Realm.Transaction initialData) {
+        if (INSTANCE == null) {
+            INSTANCE = new RealmHelper(context, initialData);
         }
         return INSTANCE;
     }
@@ -55,12 +71,10 @@ public final class RealmHelper {
         return mRealm.createObject(clazz, UUID.randomUUID().toString());
     }
 
-    public boolean isInTransaction() {
-        return mRealm.isInTransaction();
-    }
-
-    private void configure(Context context) {
-        RealmConfiguration configuration = new RealmConfiguration.Builder(context).build();
+    private void configure(Context context, Realm.Transaction initialData) {
+        RealmConfiguration configuration = new RealmConfiguration.Builder(context)
+                .initialData(initialData)
+                .build();
         Realm.setDefaultConfiguration(configuration);
     }
 }
