@@ -108,7 +108,7 @@ public class AccountWizardViewModel extends BaseObservable implements ViewModel 
         datePickerDialog.show();
     }
 
-    public void showProfile() {
+    private void showProfile() {
         Intent intent = new Intent(mContext, AccountInfoActivity.class);
         mContext.startActivity(intent);
     }
@@ -117,10 +117,6 @@ public class AccountWizardViewModel extends BaseObservable implements ViewModel 
     public void doneEditing() {
         mDataManager.saveAccount(account.get());
         showProfile();
-    }
-
-    private void showError(Throwable e) {
-
     }
 
     @Override
