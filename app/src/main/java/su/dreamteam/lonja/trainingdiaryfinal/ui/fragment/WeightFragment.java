@@ -56,12 +56,12 @@ public class WeightFragment extends SlideFragment
         return super.canGoBackward();
     }
 
-    public void showValidationError(CharSequence errorMessage) {
+    private void showValidationError(CharSequence errorMessage) {
         mBinding.weightEditWrapper.setErrorEnabled(true);
         mBinding.weightEditWrapper.setError(errorMessage);
     }
 
-    public void hideValidationError() {
+    private void hideValidationError() {
         mBinding.weightEditWrapper.setErrorEnabled(false);
     }
 

@@ -1,10 +1,8 @@
 package su.dreamteam.lonja.trainingdiaryfinal.ui.fragment;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,16 +37,6 @@ public class BirthDateFragment extends SlideFragment
         BirthDateFragment fragment = new BirthDateFragment();
         fragment.setViewModel(viewModel);
         return fragment;
-    }
-
-    @Override
-    public boolean canGoForward() {
-        return super.canGoForward();
-    }
-
-    @Override
-    public boolean canGoBackward() {
-        return super.canGoBackward();
     }
 
     @Override

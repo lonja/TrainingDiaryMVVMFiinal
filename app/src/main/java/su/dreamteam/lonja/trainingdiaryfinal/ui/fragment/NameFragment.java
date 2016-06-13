@@ -56,12 +56,12 @@ public class NameFragment extends SlideFragment
         return super.canGoBackward();
     }
 
-    public void showValidationError(CharSequence errorMessage) {
+    private void showValidationError(CharSequence errorMessage) {
         mBinding.nameEditWrapper.setErrorEnabled(true);
         mBinding.nameEditWrapper.setError(errorMessage);
     }
 
-    public void hideValidationError() {
+    private void hideValidationError() {
         mBinding.nameEditWrapper.setErrorEnabled(false);
     }
 

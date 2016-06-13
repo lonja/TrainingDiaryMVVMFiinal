@@ -56,12 +56,12 @@ public class HeightFragment extends SlideFragment
         return super.canGoBackward();
     }
 
-    public void showValidationError(CharSequence errorMessage) {
+    private void showValidationError(CharSequence errorMessage) {
         mBinding.heightEditWrapper.setErrorEnabled(true);
         mBinding.heightEditWrapper.setError(errorMessage);
     }
 
-    public void hideValidationError() {
+    private void hideValidationError() {
         mBinding.heightEditWrapper.setErrorEnabled(false);
     }
 
