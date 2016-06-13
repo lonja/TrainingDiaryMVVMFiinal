@@ -31,7 +31,7 @@ public class AddEditMeasurementActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         String measurementId = null;
-        if (getIntent().hasExtra(AddEditMeasurementActivity.ARG_MEASUREMENT_EXTRA)) {
+        if (getIntent().hasExtra(ARG_MEASUREMENT_EXTRA)) {
             measurementId = getIntent().getStringExtra(ARG_MEASUREMENT_EXTRA);
         }
 
