@@ -54,7 +54,7 @@ public class MeasurementsViewModel extends BaseObservable implements ViewModel {
         mSubscription.add(subscription);
     }
 
-    public void addMeasurement() {
+    public void onAddClick() {
         Intent intent = new Intent(mContext, AddEditMeasurementActivity.class);
         mContext.startActivity(intent);
     }
