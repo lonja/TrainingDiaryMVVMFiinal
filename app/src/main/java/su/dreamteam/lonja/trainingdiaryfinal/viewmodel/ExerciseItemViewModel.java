@@ -1,12 +1,14 @@
 package su.dreamteam.lonja.trainingdiaryfinal.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import su.dreamteam.lonja.data.model.Exercise;
 import su.dreamteam.lonja.data.repository.ExercisesRepository;
+import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.ExerciseDetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -28,6 +30,8 @@ public class ExerciseItemViewModel extends BaseObservable {
     }
 
     public void onExerciseClick() {
-
+        Intent intent = new Intent(mContext, ExerciseDetailActivity.class);
+        intent.putExtra(ExerciseDetailActivity.ARG_EXERCISE_EXTRA, exercise.get().getId());
+        mContext.startActivity(intent);
     }
 }
