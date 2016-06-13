@@ -70,7 +70,7 @@ public class AccountInfoActivity extends AppCompatActivity implements Navigation
         if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_exercises) {
-            intent = new Intent(this, MeasurementsActivity.class);
+            intent = new Intent(this, ExercisesActivity.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_trainings) {
