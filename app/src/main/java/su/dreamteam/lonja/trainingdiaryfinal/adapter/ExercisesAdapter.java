@@ -12,8 +12,11 @@ import java.util.List;
 
 import io.realm.RealmResults;
 import su.dreamteam.lonja.data.model.Exercise;
+import su.dreamteam.lonja.data.repository.ExercisesRepository;
+import su.dreamteam.lonja.data.source.local.ExercisesLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemExerciseBinding;
+import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.ExerciseItemViewModel;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder> {
 
@@ -35,7 +38,10 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
 
     @Override
     public void onBindViewHolder(ExercisesAdapter.ExerciseViewHolder holder, int position) {
-        holder.binding.setExercise(mExercises.get(position));
+        ExerciseItemViewModel viewModel = new ExerciseItemViewModel(mContext,
+                ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                mExercises.get(position));
+        holder.binding.setViewModel(viewModel);
     }
 
     @Override

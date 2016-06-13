@@ -12,17 +12,20 @@ import java.util.List;
 
 import io.realm.RealmResults;
 import su.dreamteam.lonja.data.model.Training;
+import su.dreamteam.lonja.data.repository.TrainingsRepository;
+import su.dreamteam.lonja.data.source.local.TrainingsLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemTrainingBinding;
+import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.WorkoutItemViewModel;
 
 public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.WorkoutViewHolder> {
 
     private Context mContext;
 
-    private List<Training> mTrainings;
+    private List<Training> mWorkouts;
 
-    public WorkoutsAdapter(List<Training> trainings) {
-        mTrainings = trainings;
+    public WorkoutsAdapter(List<Training> workouts) {
+        mWorkouts = workouts;
     }
 
     @Override
@@ -35,21 +38,23 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
 
     @Override
     public void onBindViewHolder(WorkoutsAdapter.WorkoutViewHolder holder, int position) {
-        holder.binding.setTraining(mTrainings.get(position));
+        WorkoutItemViewModel viewModel = new WorkoutItemViewModel(mContext,
+                TrainingsRepository.getInstance(TrainingsLocalDataSource.getInstance()));
+        holder.binding.setViewModel(viewModel);
     }
 
     @Override
     public int getItemCount() {
-        return mTrainings != null ? mTrainings.size() : 0;
+        return mWorkouts != null ? mWorkouts.size() : 0;
     }
 
-    private void setData(List<Training> trainings) {
-        mTrainings = trainings;
+    private void setData(List<Training> workouts) {
+        mWorkouts = workouts;
         notifyDataSetChanged();
     }
 
-    public void replaceData(RealmResults<Training> trainings) {
-        setData(trainings);
+    public void replaceData(RealmResults<Training> workouts) {
+        setData(workouts);
     }
 
     class WorkoutViewHolder extends RecyclerView.ViewHolder {
