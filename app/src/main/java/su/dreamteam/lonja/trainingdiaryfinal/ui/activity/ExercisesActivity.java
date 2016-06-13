@@ -16,10 +16,13 @@ import android.view.MenuItem;
 
 import java.util.Collections;
 
+import su.dreamteam.lonja.data.repository.ExercisesRepository;
+import su.dreamteam.lonja.data.source.local.ExercisesLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.ExercisesAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityExercisesBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ContentExercisesBinding;
+import su.dreamteam.lonja.trainingdiaryfinal.ui.decorator.ListItemDecorator;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.ExercisesViewModel;
 
 public class ExercisesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,7 +45,11 @@ public class ExercisesActivity extends AppCompatActivity implements NavigationVi
                 mBinding.frameContent,
                 true);
 
-        mViewModel = new ExercisesViewModel();
+        mViewModel = new ExercisesViewModel(
+                ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                adapter,
+                this
+        );
 
         Toolbar toolbar = mBinding.toolbar;
         setSupportActionBar(toolbar);
@@ -62,6 +69,8 @@ public class ExercisesActivity extends AppCompatActivity implements NavigationVi
         binding.listExercises.setLayoutManager(layoutManager);
 
         binding.listExercises.setAdapter(adapter);
+
+        binding.listExercises.addItemDecoration(new ListItemDecorator(getDrawable(R.drawable.divider)));
 
         mBinding.setViewModel(mViewModel);
     }
@@ -95,5 +104,17 @@ public class ExercisesActivity extends AppCompatActivity implements NavigationVi
         DrawerLayout drawer = mBinding.drawerLayout;
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewModel.subscribe();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mViewModel.unsubscribe();
     }
 }
