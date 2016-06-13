@@ -8,6 +8,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -47,10 +48,11 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
 
     private LayoutInflater mInflater;
 
-    public MeasurementDetailViewModel(DataManager dataManager, RealmHelper realmHelper,
+    public MeasurementDetailViewModel(@NonNull DataManager dataManager,
+                                      @NonNull RealmHelper realmHelper,
                                       String measurementId,
-                                      Context context,
-                                      LayoutInflater inflater) {
+                                      @NonNull Context context,
+                                      @NonNull LayoutInflater inflater) {
         mRealmHelper = checkNotNull(realmHelper);
         mDataManager = checkNotNull(dataManager);
         mContext = checkNotNull(context);
@@ -62,21 +64,18 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
     @Override
     public void subscribe() {
         Subscription subscription = mDataManager.getMeasurement(mMeasurementId)
-                .map(measurement -> {
-                    if (measurement == null) {
-                        startEditing();
-                        Measurement newMeasurement = mRealmHelper.createRealmObject(Measurement.class);
-                        newMeasurement.setDate(new Date());
-                        isNewMeasurement = true;
-                        return newMeasurement;
-                    }
-                    isNewMeasurement = false;
-                    return measurement;
-                })
                 .filter(measurement -> measurement.isLoaded())
                 .doOnNext(measurement -> {
+                    isNewMeasurement = false;
                     setMeasurement(measurement);
                     startEditing();
+                })
+                .doOnCompleted(() -> {
+                    startEditing();
+                    Measurement newMeasurement = mRealmHelper.createRealmObject(Measurement.class);
+                    newMeasurement.setDate(new Date());
+                    isNewMeasurement = true;
+                    setMeasurement(newMeasurement);
                 })
                 .doOnError(this::showError)
                 .subscribe();

@@ -43,7 +43,7 @@ public final class MeasurementsLocalDataSource implements MeasurementsDataSource
         if (measurement != null) {
             return measurement.asObservable();
         }
-        return Observable.just(measurement);
+        return Observable.empty();
     }
 
     @Override
