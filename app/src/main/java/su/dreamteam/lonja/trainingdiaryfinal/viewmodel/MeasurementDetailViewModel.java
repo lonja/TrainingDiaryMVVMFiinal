@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import io.realm.exceptions.RealmError;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import su.dreamteam.lonja.data.DataManager;
@@ -99,11 +100,12 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
     public void doneEditing() {
         try {
             if (!measurement.get().isNotEmpty()) {
+                cancelEditing();
                 return;
             }
             mRealmHelper.commitTransaction();
             showMeasurements();
-        } catch (Exception e) {
+        } catch (Exception | RealmError e) {
             showError(e);
         }
     }
