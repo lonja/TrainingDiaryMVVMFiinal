@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="su.dreamteam.lonja.trainingdiaryfinal.viewmodel.ExerciseChoiceViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.onExerciseSelected()}">
+
+        <TextView
+            android:id="@+id/exercise_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/exercise_image"
+            android:text="@{viewModel.exercise.title}"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/exercise_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_toEndOf="@+id/checkBox"
+            android:src="@{viewModel.exercise.icon}" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp" />
+
+    </RelativeLayout>
+
+</layout>

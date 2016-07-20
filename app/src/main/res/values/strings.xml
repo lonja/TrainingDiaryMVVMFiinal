@@ -91,4 +91,7 @@
     <string name="description">Description</string>
     <string name="technique">Technique</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="birth_date_slide_description">Enter your birth date</string>
+    <string name="no_statistics">You have no statistics</string>
+    <string name="exercises_selection">Exercises selection</string>
 </resources>

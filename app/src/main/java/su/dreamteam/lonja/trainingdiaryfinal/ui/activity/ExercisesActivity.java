@@ -22,7 +22,7 @@ import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.ExercisesAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityExercisesBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ContentExercisesBinding;
-import su.dreamteam.lonja.trainingdiaryfinal.ui.decorator.ListItemDecorator;
+import su.dreamteam.lonja.trainingdiaryfinal.ui.decoration.ListItemDecorator;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.ExercisesViewModel;
 
 public class ExercisesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +36,8 @@ public class ExercisesActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_exercises);
 
-        ExercisesAdapter adapter = new ExercisesAdapter(Collections.emptyList());
+        ExercisesAdapter adapter = new ExercisesAdapter(Collections.emptyList(),
+                ExercisesAdapter.TYPE_ITEM);
 
         LayoutInflater inflater = getLayoutInflater();
 

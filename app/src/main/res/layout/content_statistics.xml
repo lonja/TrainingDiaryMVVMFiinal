@@ -8,10 +8,28 @@
             type="su.dreamteam.lonja.trainingdiaryfinal.viewmodel.StatisticsViewModel" />
     </data>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/no_measurements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
 
-    </android.support.v4.widget.NestedScrollView>
+        <ImageView
+            android:id="@+id/image_no_measurements"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:src="@drawable/chart_areaspline" />
+
+        <TextView
+            android:id="@+id/text_no_measurements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="@string/no_statistics" />
+    </LinearLayout>
+
 </layout>

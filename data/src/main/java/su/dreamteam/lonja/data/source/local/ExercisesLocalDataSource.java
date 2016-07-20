@@ -77,6 +77,9 @@ public final class ExercisesLocalDataSource implements ExercisesDataSource {
             realmExercise.setMuscles(exercise.getMuscles());
             realmExercise.setSynergists(exercise.getSynergists());
             realmExercise.setTitle(exercise.getTitle());
+            realmExercise.setDescription(exercise.getDescription());
+            realmExercise.setTechnique(exercise.getTechnique());
+            realmExercise.setImage(exercise.getImage());
             mRealm.commitTransaction();
             return Observable.empty();
         } catch (RealmException exception) {

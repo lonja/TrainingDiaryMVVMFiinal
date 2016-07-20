@@ -22,7 +22,6 @@ public class Measurement extends RealmObject {
     private String id;
 
     @Required
-    @Index
     private Date date;
 
     private String comment;

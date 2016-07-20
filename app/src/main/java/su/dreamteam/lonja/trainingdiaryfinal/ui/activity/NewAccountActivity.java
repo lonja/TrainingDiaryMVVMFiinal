@@ -68,6 +68,7 @@ public class NewAccountActivity extends IntroActivity {
         }
     }
 
+    // FIXME: 13.06.2016 on back press on first side closing
     @Override
     protected void onDestroy() {
         super.onDestroy();

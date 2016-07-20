@@ -1,15 +1,14 @@
 package su.dreamteam.lonja.data.model;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
 import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
-import io.realm.annotations.Required;
 
 @RealmClass
 public class Exercise extends RealmObject {
@@ -23,9 +22,20 @@ public class Exercise extends RealmObject {
     @PrimaryKey
     private String id;
 
-    @Index
+    @DrawableRes
+    private int icon;
+
+    @DrawableRes
+    private int image;
+
     @StringRes
     private int title;
+
+    @StringRes
+    private int description;
+
+    @StringRes
+    private int technique;
 
     private MuscleGroup group;
 
@@ -39,9 +49,16 @@ public class Exercise extends RealmObject {
         id = UUID.randomUUID().toString();
     }
 
-    public Exercise(@StringRes int title, MuscleGroup group, RealmList<Muscle> muscles, RealmList<Muscle> synergists) {
+    public Exercise(@StringRes int title, @DrawableRes int icon,
+                    @DrawableRes int image, @StringRes int description,
+                    @StringRes int technique, MuscleGroup group,
+                    RealmList<Muscle> muscles, RealmList<Muscle> synergists) {
         this();
         this.title = title;
+        this.icon = icon;
+        this.image = image;
+        this.description = description;
+        this.technique = technique;
         this.group = group;
         this.muscles = muscles;
         this.synergists = synergists;
@@ -62,6 +79,38 @@ public class Exercise extends RealmObject {
 
     public void setTitle(@StringRes int title) {
         this.title = title;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public int getTechnique() {
+        return technique;
+    }
+
+    public void setTechnique(int technique) {
+        this.technique = technique;
+    }
+
+    public int getDescription() {
+        return description;
+    }
+
+    public void setDescription(int description) {
+        this.description = description;
     }
 
     public MuscleGroup getGroup() {

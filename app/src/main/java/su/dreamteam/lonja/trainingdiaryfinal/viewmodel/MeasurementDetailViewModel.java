@@ -66,6 +66,7 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
     public void subscribe() {
         Subscription subscription = mDataManager.getMeasurement(mMeasurementId)
                 .filter(measurement -> measurement.isLoaded())
+                .first()
                 .doOnNext(measurement -> {
                     isNewMeasurement = false;
                     setMeasurement(measurement);
@@ -96,7 +97,6 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
     }
 
 
-    // FIXME: 11.06.2016 crashing on save empty measurement attempt
     public void doneEditing() {
         try {
             if (!measurement.get().isNotEmpty()) {

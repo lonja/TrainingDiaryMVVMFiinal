@@ -3,6 +3,7 @@ package su.dreamteam.lonja.data.model;
 import org.parceler.Parcel;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 import io.realm.AccountRealmProxy;
@@ -62,6 +63,9 @@ public class Account extends RealmObject {
     }
 
     public void setName(String name) {
+        if (Objects.equals(name, "")) {
+            this.name = null;
+        }
         this.name = name;
     }
 

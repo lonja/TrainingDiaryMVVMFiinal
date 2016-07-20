@@ -13,6 +13,7 @@ import su.dreamteam.lonja.data.repository.TrainingsRepository;
 import su.dreamteam.lonja.trainingdiaryfinal.BR;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.WorkoutsAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.AddEditWorkoutActivity;
+import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.ExercisesChoiceActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -38,7 +39,7 @@ public class WorkoutsViewModel extends BaseObservable implements ViewModel {
     }
 
     public void onAddClick() {
-        Intent intent = new Intent(mContext, AddEditWorkoutActivity.class);
+        Intent intent = new Intent(mContext, ExercisesChoiceActivity.class);
         mContext.startActivity(intent);
     }
 

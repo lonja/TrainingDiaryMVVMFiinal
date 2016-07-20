@@ -1,4 +1,4 @@
-package su.dreamteam.lonja.trainingdiaryfinal.ui.decorator;
+package su.dreamteam.lonja.trainingdiaryfinal.ui.decoration;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

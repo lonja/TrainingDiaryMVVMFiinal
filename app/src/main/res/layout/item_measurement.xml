@@ -61,7 +61,7 @@
                     android:id="@+id/image_biceps"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_done_white_24px" />
+                    android:src="@drawable/biceps" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                     android:id="@+id/image_leg"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_done_white_24px" />
+                    android:src="@drawable/thighs" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                     android:id="@+id/image_waist"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_done_white_24px" />
+                    android:src="@drawable/biceps" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                     android:id="@+id/image_chest"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_done_white_24px" />
+                    android:src="@drawable/chest" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -1,19 +1,37 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.realm_version = '1.0.1'
+    ext.frodo_version = '0.8.3'
+    ext.hugo_version = '1.2.1'
+    ext.retrolambda_version = '3.3.0-beta4'
+    ext.android_support_version = '24.0.0'
+    ext.constraint_layout_version = '1.0.0-alpha3'
+    ext.rx_android_version = '1.2.1'
+    ext.rx_java_version = '1.1.6'
+    ext.circle_image_view_version = '2.0.0'
+    ext.guava_version = '19.0'
+    ext.event_bus_version = '3.0.0'
+    ext.junit_version = '4.12'
+    ext.espresso_version = '2.2.2'
+    ext.material_intro_version = '1.5.2'
+    ext.parceler_version = '1.1.5'
+    ext.robolectric_version = '3.0'
+
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha3'
-        classpath 'io.realm:realm-gradle-plugin:1.0.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
-        classpath 'com.fernandocejas.frodo:frodo-plugin:0.8.3'
-        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+        classpath "com.android.tools.build:gradle:2.2.0-alpha3"
+        classpath "io.realm:realm-gradle-plugin:$realm_version"
+        classpath "me.tatarka:gradle-retrolambda:$retrolambda_version"
+        classpath "com.fernandocejas.frodo:frodo-plugin:$frodo_version"
+        classpath "com.jakewharton.hugo:hugo-plugin:$hugo_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+
 }
 
 allprojects {

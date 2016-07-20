@@ -227,6 +227,8 @@ public class TrainingDiaryApplication extends Application {
             benchPress.setMuscles(benchMuscles);
             benchPress.setSynergists(benchSynergistsMuscles);
             benchPress.setGroup(chest);
+            benchPress.setIcon(R.drawable.ic_bench_press);
+            benchPress.setImage(R.drawable.bench_press);
 
             Exercise squats = realm.createObject(Exercise.class, UUID.randomUUID().toString());
             RealmList<Muscle> squatsMuscles = new RealmList<>(
@@ -244,6 +246,8 @@ public class TrainingDiaryApplication extends Application {
             squats.setMuscles(squatsMuscles);
             squats.setSynergists(squatsSynergistsMuscles);
             squats.setGroup(thighs);
+            squats.setIcon(R.drawable.ic_squats);
+            squats.setImage(R.drawable.squats);
 
             Exercise deadLift = realm.createObject(Exercise.class, UUID.randomUUID().toString());
             RealmList<Muscle> deadLiftMuscles = new RealmList<>(
@@ -262,6 +266,8 @@ public class TrainingDiaryApplication extends Application {
             deadLift.setMuscles(deadLiftMuscles);
             deadLift.setSynergists(deadLiftSynergistsMuscles);
             deadLift.setGroup(back);
+            deadLift.setIcon(R.drawable.ic_deadlift);
+            deadLift.setImage(R.drawable.deadlift);
 
             Exercise pullUps = realm.createObject(Exercise.class, UUID.randomUUID().toString());
             RealmList<Muscle> pullUpsMuscles = new RealmList<>(
@@ -281,6 +287,10 @@ public class TrainingDiaryApplication extends Application {
             pullUps.setMuscles(pullUpsMuscles);
             pullUps.setSynergists(pullUpsSynergistsMuscles);
             pullUps.setGroup(back);
+            pullUps.setDescription(R.string.pull_ups_description);
+            pullUps.setTechnique(R.string.pull_ups_technique);
+            pullUps.setIcon(R.drawable.ic_pull_ups);
+            pullUps.setImage(R.drawable.pull_ups);
         };
 
     }

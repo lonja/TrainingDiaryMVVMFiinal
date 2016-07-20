@@ -20,21 +20,21 @@ import su.dreamteam.lonja.data.repository.TrainingsRepository;
 import su.dreamteam.lonja.data.source.local.TrainingsLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.WorkoutsAdapter;
-import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityTrainingsBinding;
+import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityWorkoutsBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ContentTrainingsBinding;
-import su.dreamteam.lonja.trainingdiaryfinal.ui.decorator.ListItemDecorator;
+import su.dreamteam.lonja.trainingdiaryfinal.ui.decoration.ListItemDecorator;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.WorkoutsViewModel;
 
 public class WorkoutsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ActivityTrainingsBinding mBinding;
+    private ActivityWorkoutsBinding mBinding;
 
     private WorkoutsViewModel mViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_trainings);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_workouts);
 
         WorkoutsAdapter adapter = new WorkoutsAdapter(Collections.emptyList());
 

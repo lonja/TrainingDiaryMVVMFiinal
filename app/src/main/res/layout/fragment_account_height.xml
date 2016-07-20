@@ -20,7 +20,7 @@
             android:id="@+id/height_image"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:src="@drawable/ic_done_white_24px"
+            android:src="@drawable/ruler"
             app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
             app:layout_constraintLeft_toLeftOf="@+id/constraint_layout"
             app:layout_constraintRight_toRightOf="@+id/constraint_layout"
