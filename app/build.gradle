@@ -3,10 +3,9 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 apply plugin: 'com.jakewharton.hugo'
 
-
 android {
     compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "24.0.0"
     defaultConfig {
         applicationId "su.dreamteam.lonja.trainingdiaryfinal"
         minSdkVersion 21
@@ -46,6 +45,7 @@ dependencies {
     compile "com.google.guava:guava:$guava_version"
     compile "com.heinrichreimersoftware:material-intro:$material_intro_version"
     compile "org.greenrobot:eventbus:$event_bus_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     testCompile "junit:junit:$junit_version"
     androidTestCompile "com.android.support.test.espresso:espresso-core:$espresso_version"
     androidTestCompile "com.android.support.test:runner:0.5"
