@@ -9,17 +9,16 @@ import android.support.annotation.NonNull;
 import io.realm.RealmResults;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
-import su.dreamteam.lonja.data.repository.TrainingsRepository;
+import su.dreamteam.lonja.data.repository.WorkoutsRepository;
 import su.dreamteam.lonja.trainingdiaryfinal.BR;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.WorkoutsAdapter;
-import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.AddEditWorkoutActivity;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.ExercisesChoiceActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WorkoutsViewModel extends BaseObservable implements ViewModel {
 
-    private TrainingsRepository mRepo;
+    private WorkoutsRepository mRepo;
 
     private int mWorkoutsSize = 0;
 
@@ -29,7 +28,7 @@ public class WorkoutsViewModel extends BaseObservable implements ViewModel {
 
     private Context mContext;
 
-    public WorkoutsViewModel(@NonNull TrainingsRepository repo,
+    public WorkoutsViewModel(@NonNull WorkoutsRepository repo,
                              @NonNull WorkoutsAdapter adapter,
                              @NonNull Context context) {
         mRepo = checkNotNull(repo);
@@ -45,7 +44,7 @@ public class WorkoutsViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void subscribe() {
-        Subscription subscription = mRepo.getTrainings()
+        Subscription subscription = mRepo.getWorkouts()
                 .filter(RealmResults::isLoaded)
                 .first()
                 .doOnNext(workouts -> {

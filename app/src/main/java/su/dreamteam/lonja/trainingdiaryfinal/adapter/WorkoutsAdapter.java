@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import io.realm.RealmResults;
-import su.dreamteam.lonja.data.model.Training;
-import su.dreamteam.lonja.data.repository.TrainingsRepository;
-import su.dreamteam.lonja.data.source.local.TrainingsLocalDataSource;
+import su.dreamteam.lonja.data.model.Workout;
+import su.dreamteam.lonja.data.repository.WorkoutsRepository;
+import su.dreamteam.lonja.data.source.local.WorkoutsLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemTrainingBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.WorkoutItemViewModel;
@@ -22,9 +22,9 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
 
     private Context mContext;
 
-    private List<Training> mWorkouts;
+    private List<Workout> mWorkouts;
 
-    public WorkoutsAdapter(List<Training> workouts) {
+    public WorkoutsAdapter(List<Workout> workouts) {
         mWorkouts = workouts;
     }
 
@@ -39,7 +39,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
     @Override
     public void onBindViewHolder(WorkoutsAdapter.WorkoutViewHolder holder, int position) {
         WorkoutItemViewModel viewModel = new WorkoutItemViewModel(mContext,
-                TrainingsRepository.getInstance(TrainingsLocalDataSource.getInstance()));
+                WorkoutsRepository.getInstance(WorkoutsLocalDataSource.getInstance()));
         holder.binding.setViewModel(viewModel);
     }
 
@@ -48,12 +48,12 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
         return mWorkouts != null ? mWorkouts.size() : 0;
     }
 
-    private void setData(List<Training> workouts) {
+    private void setData(List<Workout> workouts) {
         mWorkouts = workouts;
         notifyDataSetChanged();
     }
 
-    public void replaceData(RealmResults<Training> workouts) {
+    public void replaceData(RealmResults<Workout> workouts) {
         setData(workouts);
     }
 

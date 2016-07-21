@@ -6,20 +6,20 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-import su.dreamteam.lonja.data.model.Training;
-import su.dreamteam.lonja.data.repository.TrainingsRepository;
+import su.dreamteam.lonja.data.model.Workout;
+import su.dreamteam.lonja.data.repository.WorkoutsRepository;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.AddEditWorkoutActivity;
 
 public class WorkoutItemViewModel extends BaseObservable {
 
     private Context mContext;
 
-    private TrainingsRepository mRepo;
+    private WorkoutsRepository mRepo;
 
-    public final ObservableField<Training> workout = new ObservableField<>();
+    public final ObservableField<Workout> workout = new ObservableField<>();
 
     public WorkoutItemViewModel(@NonNull Context context,
-                                @NonNull TrainingsRepository repo) {
+                                @NonNull WorkoutsRepository repo) {
         mContext = context;
         mRepo = repo;
     }
@@ -31,6 +31,6 @@ public class WorkoutItemViewModel extends BaseObservable {
     }
 
     public void omMeasurementDeleteClick() {
-        mRepo.deleteTraining(workout.get().getId());
+        mRepo.deleteWorkout(workout.get().getId());
     }
 }
