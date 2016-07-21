@@ -4,8 +4,9 @@ import android.support.annotation.NonNull;
 
 import io.realm.RealmResults;
 import rx.Observable;
-import rx.Scheduler;
+import rx.schedulers.Schedulers;
 import su.dreamteam.lonja.data.model.Measurement;
+import su.dreamteam.lonja.data.repository.MeasurementsRepository;
 import su.dreamteam.lonja.trainingdiaryfinal.common.UseCase;
 import su.dreamteam.lonja.trainingdiaryfinal.measurements.domain.filter.FilterFactory;
 import su.dreamteam.lonja.trainingdiaryfinal.measurements.domain.filter.MeasurementsFilterType;
@@ -16,8 +17,10 @@ public class GetMeasurements extends UseCase<GetMeasurements.RequestValues, GetM
 
     private final FilterFactory mFilterFactoy;
 
-    protected GetMeasurements(Scheduler backgroundScheduler) {
-        super(backgroundScheduler);
+    protected GetMeasurements(@NonNull MeasurementsRepository measurementsRepository, @NonNull FilterFactory filterFactory) {
+        super(Schedulers.io());
+        mMeasurementsRepository = measurementsRepository;
+        mFilterFactoy = filterFactory;
     }
 
     @Override
