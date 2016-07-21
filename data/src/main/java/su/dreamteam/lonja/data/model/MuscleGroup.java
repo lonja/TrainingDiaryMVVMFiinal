@@ -3,12 +3,22 @@ package su.dreamteam.lonja.data.model;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelPropertyConverter;
+
 import java.util.UUID;
 
+import io.realm.MuscleGroupRealmProxy;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
+import su.dreamteam.lonja.data.common.parcel.MuscleListParcelConverter;
 
+@RealmClass
+@Parcel(implementations = MuscleGroupRealmProxy.class,
+        value = Parcel.Serialization.BEAN,
+        analyze = MuscleGroup.class)
 public class MuscleGroup extends RealmObject {
 
     public static final int BACK = 0;
@@ -68,6 +78,7 @@ public class MuscleGroup extends RealmObject {
         return muscles;
     }
 
+    @ParcelPropertyConverter(MuscleListParcelConverter.class)
     public void setMuscles(RealmList<Muscle> muscles) {
         this.muscles = muscles;
     }

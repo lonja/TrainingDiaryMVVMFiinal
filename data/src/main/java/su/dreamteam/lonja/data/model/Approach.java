@@ -1,13 +1,19 @@
 package su.dreamteam.lonja.data.model;
 
+import org.parceler.Parcel;
+
 import java.util.UUID;
 
+import io.realm.ApproachRealmProxy;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
 
 @RealmClass
+@Parcel(implementations = ApproachRealmProxy.class,
+        value = Parcel.Serialization.BEAN,
+        analyze = Approach.class)
 public class Approach extends RealmObject {
 
     @PrimaryKey
@@ -23,19 +29,19 @@ public class Approach extends RealmObject {
     @Required
     private Integer weight;
 
-    private Training training;
+    private Workout workout;
 
     public Approach() {
         id = UUID.randomUUID().toString();
     }
 
-    public Approach(Exercise exercise, String comment, Integer reps, Integer weight, Training training) {
+    public Approach(Exercise exercise, String comment, Integer reps, Integer weight, Workout workout) {
         this();
         this.exercise = exercise;
         this.comment = comment;
         this.reps = reps;
         this.weight = weight;
-        this.training = training;
+        this.workout = workout;
     }
 
 
@@ -71,8 +77,8 @@ public class Approach extends RealmObject {
         this.weight = weight;
     }
 
-    public Training getTraining() {
-        return training;
+    public Workout getWorkout() {
+        return workout;
     }
 
     public String getComment() {
@@ -83,7 +89,7 @@ public class Approach extends RealmObject {
         this.comment = comment;
     }
 
-    public void setTraining(Training training) {
-        this.training = training;
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 }

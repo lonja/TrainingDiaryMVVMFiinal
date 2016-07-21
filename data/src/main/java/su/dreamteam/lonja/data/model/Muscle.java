@@ -2,13 +2,23 @@ package su.dreamteam.lonja.data.model;
 
 import android.support.annotation.StringRes;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelPropertyConverter;
+
 import java.util.UUID;
 
+import io.realm.MuscleRealmProxy;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
+import su.dreamteam.lonja.data.common.parcel.ExerciseListParcelConverter;
 
+@RealmClass
+@Parcel(implementations = MuscleRealmProxy.class,
+        value = Parcel.Serialization.BEAN,
+        analyze = Muscle.class)
 public class Muscle extends RealmObject {
 
     public static final int TRAPEZIUS = 0;
@@ -73,6 +83,7 @@ public class Muscle extends RealmObject {
         return exercises;
     }
 
+    @ParcelPropertyConverter(ExerciseListParcelConverter.class)
     public void setExercises(RealmList<Exercise> exercises) {
         this.exercises = exercises;
     }
