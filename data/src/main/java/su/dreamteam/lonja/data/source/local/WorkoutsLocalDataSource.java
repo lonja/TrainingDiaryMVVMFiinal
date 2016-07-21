@@ -6,53 +6,53 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.exceptions.RealmException;
 import rx.Observable;
-import su.dreamteam.lonja.data.model.Training;
-import su.dreamteam.lonja.data.source.TrainingsDataSource;
+import su.dreamteam.lonja.data.model.Workout;
+import su.dreamteam.lonja.data.source.WorkoutsDataSource;
 
 
-public final class TrainingsLocalDataSource implements TrainingsDataSource {
+public final class WorkoutsLocalDataSource implements WorkoutsDataSource {
 
     private Realm mRealm;
 
-    private TrainingsLocalDataSource() {
+    private WorkoutsLocalDataSource() {
         mRealm = Realm.getDefaultInstance();
     }
 
-    private static TrainingsLocalDataSource INSTANCE;
+    private static WorkoutsLocalDataSource INSTANCE;
 
-    public static TrainingsLocalDataSource getInstance() {
+    public static WorkoutsLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new TrainingsLocalDataSource();
+            INSTANCE = new WorkoutsLocalDataSource();
         }
         return INSTANCE;
     }
 
     @Override
-    public Observable<RealmResults<Training>> getTrainings() {
-        return mRealm.where(Training.class)
+    public Observable<RealmResults<Workout>> getWorkouts() {
+        return mRealm.where(Workout.class)
                 .findAllAsync()
                 .asObservable();
     }
 
     @Override
-    public Observable<Training> getTraining(String trainingId) {
-        Training training = mRealm.where(Training.class)
+    public Observable<Workout> getWorkout(String trainingId) {
+        Workout workout = mRealm.where(Workout.class)
                 .equalTo("id", trainingId)
                 .findFirst();
-        if (training != null) {
-            return training.asObservable();
+        if (workout != null) {
+            return workout.asObservable();
         }
         return Observable.error(new RealmException("Exercise not found"));
     }
 
     @Override
-    public Observable saveTraining(@NonNull Training training) {
+    public Observable saveWorkout(@NonNull Workout workout) {
         try {
             mRealm.beginTransaction();
-            Training realmTraining = mRealm.createObject(Training.class);
-            realmTraining.setDate(training.getDate());
-            realmTraining.setDuration(training.getDuration());
-            realmTraining.setExercises(training.getExercises());
+            Workout realmWorkout = mRealm.createObject(Workout.class);
+            realmWorkout.setDate(workout.getDate());
+            realmWorkout.setDuration(workout.getDuration());
+            realmWorkout.setExercises(workout.getExercises());
             mRealm.commitTransaction();
             return Observable.empty();
         } catch (RealmException exception) {
@@ -62,10 +62,10 @@ public final class TrainingsLocalDataSource implements TrainingsDataSource {
     }
 
     @Override
-    public Observable deleteTraining(@NonNull String trainingId) {
+    public Observable deleteWorkout(@NonNull String trainingId) {
         try {
             mRealm.beginTransaction();
-            mRealm.where(Training.class)
+            mRealm.where(Workout.class)
                     .equalTo("id", trainingId)
                     .findFirst()
                     .deleteFromRealm();

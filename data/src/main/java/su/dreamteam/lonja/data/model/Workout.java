@@ -1,14 +1,24 @@
 package su.dreamteam.lonja.data.model;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelPropertyConverter;
+
 import java.util.Date;
 import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.WorkoutRealmProxy;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
+import su.dreamteam.lonja.data.common.parcel.ExerciseListParcelConverter;
 
-public class Training extends RealmObject {
+@RealmClass
+@Parcel(implementations = WorkoutRealmProxy.class,
+        value = Parcel.Serialization.BEAN,
+        analyze = Workout.class)
+public class Workout extends RealmObject {
 
     @PrimaryKey
     private String id;
@@ -21,12 +31,12 @@ public class Training extends RealmObject {
 
     private RealmList<Exercise> exercises;
 
-    public Training() {
+    public Workout() {
         id = UUID.randomUUID().toString();
         date = new Date();
     }
 
-    public Training(Date date, long duration, RealmList<Exercise> exercises) {
+    public Workout(Date date, long duration, RealmList<Exercise> exercises) {
         this();
         this.date = date;
         this.duration = duration;
@@ -61,6 +71,7 @@ public class Training extends RealmObject {
         return exercises;
     }
 
+    @ParcelPropertyConverter(ExerciseListParcelConverter.class)
     public void setExercises(RealmList<Exercise> exercises) {
         this.exercises = exercises;
     }
