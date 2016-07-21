@@ -73,6 +73,7 @@ public final class RealmHelper {
 
     private void configure(Context context, Realm.Transaction initialData) {
         RealmConfiguration configuration = new RealmConfiguration.Builder(context)
+                .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(configuration);
         final Realm realm = Realm.getDefaultInstance();
