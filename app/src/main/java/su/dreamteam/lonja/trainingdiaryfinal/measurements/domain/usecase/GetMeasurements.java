@@ -1,4 +1,4 @@
-package su.dreamteam.lonja.trainingdiaryfinal.measurements.domain;
+package su.dreamteam.lonja.trainingdiaryfinal.measurements.domain.usecase;
 
 import android.support.annotation.NonNull;
 
@@ -9,6 +9,7 @@ import su.dreamteam.lonja.data.model.Measurement;
 import su.dreamteam.lonja.data.repository.MeasurementsRepository;
 import su.dreamteam.lonja.trainingdiaryfinal.common.UseCase;
 import su.dreamteam.lonja.trainingdiaryfinal.measurements.domain.filter.FilterFactory;
+import su.dreamteam.lonja.trainingdiaryfinal.measurements.domain.filter.MeasurementFilter;
 import su.dreamteam.lonja.trainingdiaryfinal.measurements.domain.filter.MeasurementsFilterType;
 
 public class GetMeasurements extends UseCase<GetMeasurements.RequestValues, GetMeasurements.ResponseValue> {
@@ -17,7 +18,7 @@ public class GetMeasurements extends UseCase<GetMeasurements.RequestValues, GetM
 
     private final FilterFactory mFilterFactoy;
 
-    protected GetMeasurements(@NonNull MeasurementsRepository measurementsRepository, @NonNull FilterFactory filterFactory) {
+    public GetMeasurements(@NonNull MeasurementsRepository measurementsRepository, @NonNull FilterFactory filterFactory) {
         super(Schedulers.io());
         mMeasurementsRepository = measurementsRepository;
         mFilterFactoy = filterFactory;
@@ -25,7 +26,19 @@ public class GetMeasurements extends UseCase<GetMeasurements.RequestValues, GetM
 
     @Override
     protected Observable<ResponseValue> executeUseCase(RequestValues requestValues) {
-        return null;
+        if (requestValues.isForceUpdate()) {
+            mMeasurementsRepository.refreshMeasurements();
+        }
+
+        return mMeasurementsRepository.getMeasurements()
+                .map(measurements -> {
+                    MeasurementsFilterType currentFilterType = requestValues.getCurrentFiltering();
+                    MeasurementFilter measurementFilter = mFilterFactoy.create(currentFilterType);
+
+                    RealmResults<Measurement> filteredMeasurements = measurementFilter.filter(measurements);
+
+                    return new ResponseValue(filteredMeasurements);
+                });
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
