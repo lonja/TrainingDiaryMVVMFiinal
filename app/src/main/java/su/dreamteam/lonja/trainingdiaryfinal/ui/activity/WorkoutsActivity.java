@@ -16,8 +16,8 @@ import android.view.MenuItem;
 
 import java.util.Collections;
 
-import su.dreamteam.lonja.data.repository.TrainingsRepository;
-import su.dreamteam.lonja.data.source.local.TrainingsLocalDataSource;
+import su.dreamteam.lonja.data.repository.WorkoutsRepository;
+import su.dreamteam.lonja.data.source.local.WorkoutsLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.WorkoutsAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityWorkoutsBinding;
@@ -46,7 +46,7 @@ public class WorkoutsActivity extends BaseActivity implements NavigationView.OnN
                 true);
 
         mViewModel = new WorkoutsViewModel(
-                TrainingsRepository.getInstance(TrainingsLocalDataSource.getInstance()),
+                WorkoutsRepository.getInstance(WorkoutsLocalDataSource.getInstance()),
                 adapter,
                 this
         );
