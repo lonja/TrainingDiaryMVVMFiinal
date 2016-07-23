@@ -1,4 +1,4 @@
-package su.dreamteam.lonja.trainingdiaryfinal;
+package su.dreamteam.lonja.trainingdiaryfinal.common;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
@@ -17,6 +17,8 @@ import com.google.common.math.DoubleMath;
 
 import java.util.Date;
 import java.util.Objects;
+
+import su.dreamteam.lonja.trainingdiaryfinal.R;
 
 public class Bindings {
 
