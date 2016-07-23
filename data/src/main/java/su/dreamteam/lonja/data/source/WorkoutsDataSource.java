@@ -13,7 +13,7 @@ public interface WorkoutsDataSource {
 
     Observable<Workout> getWorkout(String trainingId);
 
-    Observable<Workout> saveWorkout(@NonNull Workout workout);
+    Observable saveWorkout(@NonNull Workout workout);
 
-    Observable<Workout> deleteWorkout(@NonNull String trainingId);
+    Observable deleteWorkout(@NonNull String trainingId);
 }

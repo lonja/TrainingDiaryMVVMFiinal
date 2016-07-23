@@ -12,7 +12,7 @@ public interface MeasurementsDataSource {
 
     Observable<Measurement> getMeasurement(@NonNull String measurementId);
 
-    void saveMeasurement(@NonNull Measurement measurement);
+    Observable saveMeasurement(@NonNull Measurement measurement);
 
-    void deleteMeasurement(@NonNull String measurementId);
+    Observable deleteMeasurement(@NonNull String measurementId);
 }

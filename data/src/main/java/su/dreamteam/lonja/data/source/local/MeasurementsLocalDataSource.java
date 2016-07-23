@@ -1,7 +1,6 @@
 package su.dreamteam.lonja.data.source.local;
 
 import android.support.annotation.NonNull;
-import android.system.ErrnoException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -10,11 +9,10 @@ import rx.Observable;
 import su.dreamteam.lonja.data.model.Measurement;
 import su.dreamteam.lonja.data.source.MeasurementsDataSource;
 
-public final class MeasurementsLocalDataSource implements MeasurementsDataSource {
-
-    private Realm mRealm;
+public final class MeasurementsLocalDataSource extends LocalDataSource implements MeasurementsDataSource {
 
     private static MeasurementsLocalDataSource INSTANCE;
+    private Realm mRealm;
 
     private MeasurementsLocalDataSource() {
         mRealm = Realm.getDefaultInstance();
@@ -47,42 +45,15 @@ public final class MeasurementsLocalDataSource implements MeasurementsDataSource
     }
 
     @Override
-    public void saveMeasurement(@NonNull Measurement measurement) {
-        try {
-            mRealm.beginTransaction();
-            Measurement realmMeasurement = mRealm.createObject(Measurement.class);
-            realmMeasurement.setId(measurement.getId());
-            realmMeasurement.setDate(measurement.getDate());
-            realmMeasurement.setComment(measurement.getComment());
-            realmMeasurement.setChest(measurement.getChest());
-            realmMeasurement.setLeftBiceps(measurement.getLeftBiceps());
-            realmMeasurement.setLeftForearm(measurement.getLeftForearm());
-            realmMeasurement.setLeftHip(measurement.getLeftHip());
-            realmMeasurement.setLeftShin(measurement.getLeftShin());
-            realmMeasurement.setNeck(measurement.getNeck());
-            realmMeasurement.setRightBiceps(measurement.getRightBiceps());
-            realmMeasurement.setRightShin(measurement.getRightShin());
-            realmMeasurement.setRightForearm(measurement.getRightForearm());
-            realmMeasurement.setRightHip(measurement.getRightHip());
-            realmMeasurement.setWaist(measurement.getWaist());
-            realmMeasurement.setWeight(measurement.getWeight());
-            mRealm.commitTransaction();
-        } catch (Exception e) {
-            mRealm.cancelTransaction();
-        }
+    public Observable saveMeasurement(@NonNull Measurement measurement) {
+        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(measurement));
     }
 
     @Override
-    public void deleteMeasurement(@NonNull String measurementId) {
-        try {
-            mRealm.beginTransaction();
-            mRealm.where(Measurement.class)
-                    .equalTo("id", measurementId)
-                    .findFirst()
-                    .deleteFromRealm();
-            mRealm.commitTransaction();
-        } catch (Exception | Error e) {
-            mRealm.cancelTransaction();
-        }
+    public Observable deleteMeasurement(@NonNull String measurementId) {
+        return executeTransactionAsync(realm -> realm.where(Measurement.class)
+                .equalTo("id", measurementId)
+                .findFirst()
+                .deleteFromRealm());
     }
 }

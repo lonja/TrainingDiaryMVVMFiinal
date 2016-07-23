@@ -7,7 +7,7 @@ public interface AccountDataSource {
 
     Observable<Account> getAccount();
 
-    void saveAccount(Account account);
+    Observable saveAccount(Account account);
 
-    void deleteAccount();
+    Observable deleteAccount();
 }

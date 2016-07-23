@@ -6,7 +6,7 @@ import rx.Observable;
 import su.dreamteam.lonja.data.model.Account;
 import su.dreamteam.lonja.data.source.AccountDataSource;
 
-public final class AccountLocalDataSource implements AccountDataSource {
+public final class AccountLocalDataSource extends LocalDataSource implements AccountDataSource {
 
     private Realm mRealm;
 
@@ -34,30 +34,12 @@ public final class AccountLocalDataSource implements AccountDataSource {
     }
 
     @Override
-    public void saveAccount(Account account) {
-        try {
-            mRealm.beginTransaction();
-            Account realmAccount = mRealm.createObject(Account.class);
-            realmAccount.setId(account.getId());
-            realmAccount.setName(account.getName());
-            realmAccount.setGender(account.getGender());
-            realmAccount.setBirthDate(account.getBirthDate());
-            realmAccount.setHeight(account.getHeight());
-            realmAccount.setWeight(account.getWeight());
-            mRealm.commitTransaction();
-        } catch (RealmException e) {
-            mRealm.cancelTransaction();
-        }
+    public Observable saveAccount(Account account) {
+        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(account));
     }
 
     @Override
-    public void deleteAccount() {
-        try {
-            mRealm.beginTransaction();
-            mRealm.delete(Account.class);
-            mRealm.commitTransaction();
-        } catch (RealmException e) {
-            mRealm.cancelTransaction();
-        }
+    public Observable deleteAccount() {
+        return executeTransactionAsync(realm -> realm.delete(Account.class));
     }
 }
