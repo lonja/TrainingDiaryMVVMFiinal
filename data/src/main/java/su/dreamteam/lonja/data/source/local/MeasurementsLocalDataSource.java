@@ -8,20 +8,20 @@ import io.realm.Sort;
 import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Measurement;
-import su.dreamteam.lonja.data.source.MeasurementsDataSource;
+import su.dreamteam.lonja.data.source.contract.MeasurementsDataSourceContract;
 
-public final class MeasurementsRealmLocalDataSource extends RealmLocalDataSource implements MeasurementsDataSource {
+public final class MeasurementsLocalDataSource extends BaseRealmDataSource implements MeasurementsDataSourceContract.MeasurementsRealmDataSource {
 
-    private static MeasurementsRealmLocalDataSource INSTANCE;
+    private static MeasurementsLocalDataSource INSTANCE;
     private Realm mRealm;
 
-    private MeasurementsRealmLocalDataSource() {
-        mRealm = Realm.getDefaultInstance();
+    private MeasurementsLocalDataSource() {
+
     }
 
-    public static MeasurementsRealmLocalDataSource getInstance() {
+    public static MeasurementsLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new MeasurementsRealmLocalDataSource();
+            INSTANCE = new MeasurementsLocalDataSource();
         }
         return INSTANCE;
     }
@@ -56,5 +56,21 @@ public final class MeasurementsRealmLocalDataSource extends RealmLocalDataSource
                 .equalTo("id", measurementId)
                 .findFirst()
                 .deleteFromRealm());
+    }
+
+    @Override
+    public void openConnection() {
+        if (mRealm != null) {
+            return;
+        }
+        mRealm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void closeConnection() {
+        if (mRealm == null) {
+            return;
+        }
+        closeConnection(mRealm);
     }
 }

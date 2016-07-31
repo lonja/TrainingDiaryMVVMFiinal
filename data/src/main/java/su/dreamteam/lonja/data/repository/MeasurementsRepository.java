@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import io.realm.RealmResults;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Measurement;
-import su.dreamteam.lonja.data.source.MeasurementsDataSource;
+import su.dreamteam.lonja.data.source.contract.MeasurementsDataSourceContract.*;
 
 public class MeasurementsRepository implements MeasurementsDataSource {
 

@@ -7,20 +7,20 @@ import io.realm.RealmResults;
 import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Muscle;
-import su.dreamteam.lonja.data.source.MusclesDataSource;
+import su.dreamteam.lonja.data.source.contract.MusclesDataSourceContract;
 
-public final class MusclesRealmLocalDataSource extends RealmLocalDataSource implements MusclesDataSource {
+public final class MusclesLocalDataSource extends BaseRealmDataSource implements MusclesDataSourceContract.MusclesRealmDataSource {
 
-    private static MusclesRealmLocalDataSource INSTANCE;
+    private static MusclesLocalDataSource INSTANCE;
     private Realm mRealm;
 
-    private MusclesRealmLocalDataSource() {
-        mRealm = Realm.getDefaultInstance();
+    private MusclesLocalDataSource() {
+
     }
 
-    public static MusclesRealmLocalDataSource getInstance() {
+    public static MusclesLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new MusclesRealmLocalDataSource();
+            INSTANCE = new MusclesLocalDataSource();
         }
         return INSTANCE;
     }
@@ -97,5 +97,21 @@ public final class MusclesRealmLocalDataSource extends RealmLocalDataSource impl
                 .equalTo("id", muscleId)
                 .findFirst()
                 .deleteFromRealm());
+    }
+
+    @Override
+    public void openConnection() {
+        if (mRealm != null) {
+            return;
+        }
+        mRealm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void closeConnection() {
+        if (mRealm == null) {
+            return;
+        }
+        closeConnection(mRealm);
     }
 }

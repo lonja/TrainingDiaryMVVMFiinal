@@ -8,21 +8,21 @@ import io.realm.RealmResults;
 import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Workout;
-import su.dreamteam.lonja.data.source.WorkoutsDataSource;
+import su.dreamteam.lonja.data.source.contract.WorkoutsDataSourceContract;
 
 
-public final class WorkoutsRealmLocalDataSource extends RealmLocalDataSource implements WorkoutsDataSource {
+public final class WorkoutsLocalDataSource extends BaseRealmDataSource implements WorkoutsDataSourceContract.WorkoutsRealmDataSource {
 
-    private static WorkoutsRealmLocalDataSource INSTANCE;
+    private static WorkoutsLocalDataSource INSTANCE;
     private Realm mRealm;
 
-    private WorkoutsRealmLocalDataSource() {
-        mRealm = Realm.getDefaultInstance();
+    private WorkoutsLocalDataSource() {
+
     }
 
-    public static WorkoutsRealmLocalDataSource getInstance() {
+    public static WorkoutsLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new WorkoutsRealmLocalDataSource();
+            INSTANCE = new WorkoutsLocalDataSource();
         }
         return INSTANCE;
     }
@@ -58,5 +58,21 @@ public final class WorkoutsRealmLocalDataSource extends RealmLocalDataSource imp
                 .equalTo("id", trainingId)
                 .findFirst()
                 .deleteFromRealm());
+    }
+
+    @Override
+    public void openConnection() {
+        if (mRealm != null) {
+            return;
+        }
+        mRealm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void closeConnection() {
+        if (mRealm == null) {
+            return;
+        }
+        closeConnection(mRealm);
     }
 }

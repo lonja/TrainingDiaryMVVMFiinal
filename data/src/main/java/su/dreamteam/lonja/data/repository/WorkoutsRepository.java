@@ -5,19 +5,19 @@ import android.support.annotation.NonNull;
 import io.realm.RealmResults;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Workout;
-import su.dreamteam.lonja.data.source.WorkoutsDataSource;
+import su.dreamteam.lonja.data.source.contract.WorkoutsDataSourceContract.*;
 
 public class WorkoutsRepository implements WorkoutsDataSource {
 
-    private WorkoutsDataSource mLocalDataSource;
+    private WorkoutsRealmDataSource mLocalDataSource;
 
     private static WorkoutsRepository INSTANCE;
 
-    private WorkoutsRepository(WorkoutsDataSource localDataSource) {
+    private WorkoutsRepository(WorkoutsRealmDataSource localDataSource) {
         mLocalDataSource = localDataSource;
     }
 
-    public static WorkoutsRepository getInstance(WorkoutsDataSource localDataSource) {
+    public static WorkoutsRepository getInstance(WorkoutsRealmDataSource localDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new WorkoutsRepository(localDataSource);
         }
@@ -30,8 +30,8 @@ public class WorkoutsRepository implements WorkoutsDataSource {
     }
 
     @Override
-    public Observable<Workout> getWorkout(String trainingId) {
-        return mLocalDataSource.getWorkout(trainingId);
+    public Observable<Workout> getWorkout(String workoutId) {
+        return mLocalDataSource.getWorkout(workoutId);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class WorkoutsRepository implements WorkoutsDataSource {
     }
 
     @Override
-    public Observable deleteWorkout(@NonNull String trainingId) {
-        return mLocalDataSource.deleteWorkout(trainingId);
+    public Observable deleteWorkout(@NonNull String workoutId) {
+        return mLocalDataSource.deleteWorkout(workoutId);
     }
 }

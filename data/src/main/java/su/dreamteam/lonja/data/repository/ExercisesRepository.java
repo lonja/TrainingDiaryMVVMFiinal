@@ -5,19 +5,19 @@ import android.support.annotation.NonNull;
 import io.realm.RealmResults;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Exercise;
-import su.dreamteam.lonja.data.source.ExercisesDataSource;
+import su.dreamteam.lonja.data.source.contract.ExercisesDataSourceContract.*;
 
 public class ExercisesRepository implements ExercisesDataSource {
 
-    private ExercisesDataSource mLocalDataSource;
+    private ExercisesRealmDataSource mLocalDataSource;
 
     private static ExercisesRepository INSTANCE;
 
-    private ExercisesRepository(ExercisesDataSource localDataSource) {
+    private ExercisesRepository(ExercisesRealmDataSource localDataSource) {
         mLocalDataSource = localDataSource;
     }
 
-    public static ExercisesRepository getInstance(ExercisesDataSource localDataSource) {
+    public static ExercisesRepository getInstance(ExercisesRealmDataSource localDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new ExercisesRepository(localDataSource);
         }
