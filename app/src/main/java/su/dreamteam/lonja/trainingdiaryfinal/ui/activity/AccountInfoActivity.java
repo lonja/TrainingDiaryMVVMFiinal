@@ -13,12 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import su.dreamteam.lonja.data.DataManager;
-import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
-import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.data.source.local.AccountRealmLocalDataSource;
+import su.dreamteam.lonja.data.source.local.MeasurementsRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityAccountInfoBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.AccountInfoViewModel;
-import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.StatisticsViewModel;
 
 public class AccountInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,8 +44,8 @@ public class AccountInfoActivity extends AppCompatActivity implements Navigation
         navigationView.setCheckedItem(R.id.nav_profile);
 
         mViewModel = new AccountInfoViewModel(DataManager.getInstance(
-                MeasurementsLocalDataSource.getInstance(),
-                AccountLocalDataSource.getInstance()
+                MeasurementsRealmLocalDataSource.getInstance(),
+                AccountRealmLocalDataSource.getInstance()
         ), this);
         mBinding.setViewModel(mViewModel);
     }

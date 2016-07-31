@@ -5,22 +5,23 @@ import android.support.annotation.NonNull;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Measurement;
 import su.dreamteam.lonja.data.source.MeasurementsDataSource;
 
-public final class MeasurementsLocalDataSource extends LocalDataSource implements MeasurementsDataSource {
+public final class MeasurementsRealmLocalDataSource extends RealmLocalDataSource implements MeasurementsDataSource {
 
-    private static MeasurementsLocalDataSource INSTANCE;
+    private static MeasurementsRealmLocalDataSource INSTANCE;
     private Realm mRealm;
 
-    private MeasurementsLocalDataSource() {
+    private MeasurementsRealmLocalDataSource() {
         mRealm = Realm.getDefaultInstance();
     }
 
-    public static MeasurementsLocalDataSource getInstance() {
+    public static MeasurementsRealmLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new MeasurementsLocalDataSource();
+            INSTANCE = new MeasurementsRealmLocalDataSource();
         }
         return INSTANCE;
     }
@@ -41,17 +42,17 @@ public final class MeasurementsLocalDataSource extends LocalDataSource implement
         if (measurement != null) {
             return measurement.asObservable();
         }
-        return Observable.empty();
+        return Observable.error(new RealmException("Measurement not found"));
     }
 
     @Override
     public Observable saveMeasurement(@NonNull Measurement measurement) {
-        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(measurement));
+        return executeTransactionAsync(mRealm, realm -> realm.copyToRealmOrUpdate(measurement));
     }
 
     @Override
     public Observable deleteMeasurement(@NonNull String measurementId) {
-        return executeTransactionAsync(realm -> realm.where(Measurement.class)
+        return executeTransactionAsync(mRealm, realm -> realm.where(Measurement.class)
                 .equalTo("id", measurementId)
                 .findFirst()
                 .deleteFromRealm());

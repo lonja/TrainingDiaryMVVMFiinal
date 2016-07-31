@@ -42,13 +42,13 @@ public final class DataManager implements MeasurementsDataSource, AccountDataSou
     }
 
     @Override
-    public void saveAccount(Account account) {
-        mAccountLocalDataSource.saveAccount(account);
+    public Observable saveAccount(Account account) {
+        return mAccountLocalDataSource.saveAccount(account);
     }
 
     @Override
-    public void deleteAccount() {
-        mAccountLocalDataSource.deleteAccount();
+    public Observable deleteAccount() {
+        return mAccountLocalDataSource.deleteAccount();
     }
 
     @RxLogObservable
@@ -64,14 +64,14 @@ public final class DataManager implements MeasurementsDataSource, AccountDataSou
     }
 
     @Override
-    public void saveMeasurement(@NonNull Measurement measurement) {
+    public Observable saveMeasurement(@NonNull Measurement measurement) {
         checkNotNull(measurement);
-        mMeasurementsLocalDataSource.saveMeasurement(measurement);
+        return mMeasurementsLocalDataSource.saveMeasurement(measurement);
     }
 
     @Override
-    public void deleteMeasurement(@NonNull String measurementId) {
+    public Observable deleteMeasurement(@NonNull String measurementId) {
         checkNotNull(measurementId);
-        mMeasurementsLocalDataSource.deleteMeasurement(measurementId);
+        return mMeasurementsLocalDataSource.deleteMeasurement(measurementId);
     }
 }

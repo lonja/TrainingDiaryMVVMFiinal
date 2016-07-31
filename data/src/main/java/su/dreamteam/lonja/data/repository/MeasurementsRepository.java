@@ -9,27 +9,42 @@ import su.dreamteam.lonja.data.source.MeasurementsDataSource;
 
 public class MeasurementsRepository implements MeasurementsDataSource {
 
+    private MeasurementsDataSource mLocalDataSource;
+
+    private static MeasurementsRepository INSTANCE;
+
+    private MeasurementsRepository(MeasurementsDataSource measurementsLocalDataSource) {
+        mLocalDataSource = measurementsLocalDataSource;
+    }
+
+    public static MeasurementsRepository getInstance(MeasurementsDataSource measurementsLocalDataSource) {
+        if (INSTANCE == null) {
+            INSTANCE = new MeasurementsRepository(measurementsLocalDataSource);
+        }
+        return INSTANCE;
+    }
+
     public void refreshMeasurements() {
 
     }
 
     @Override
     public Observable<RealmResults<Measurement>> getMeasurements() {
-        return null;
+        return mLocalDataSource.getMeasurements();
     }
 
     @Override
     public Observable<Measurement> getMeasurement(@NonNull String measurementId) {
-        return null;
+        return mLocalDataSource.getMeasurement(measurementId);
     }
 
     @Override
     public Observable saveMeasurement(@NonNull Measurement measurement) {
-        return null;
+        return mLocalDataSource.saveMeasurement(measurement);
     }
 
     @Override
     public Observable deleteMeasurement(@NonNull String measurementId) {
-        return null;
+        return mLocalDataSource.deleteMeasurement(measurementId);
     }
 }

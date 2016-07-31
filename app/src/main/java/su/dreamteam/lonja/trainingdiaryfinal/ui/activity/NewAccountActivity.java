@@ -7,8 +7,8 @@ import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.Slide;
 
 import su.dreamteam.lonja.data.DataManager;
-import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
-import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.data.source.local.AccountRealmLocalDataSource;
+import su.dreamteam.lonja.data.source.local.MeasurementsRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.BirthDateFragment;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.fragment.GenderFragment;
@@ -25,8 +25,8 @@ public class NewAccountActivity extends IntroActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new AccountWizardViewModel(DataManager.getInstance(
-                MeasurementsLocalDataSource.getInstance(),
-                AccountLocalDataSource.getInstance()
+                MeasurementsRealmLocalDataSource.getInstance(),
+                AccountRealmLocalDataSource.getInstance()
         ),
                 this);
         initSlides();

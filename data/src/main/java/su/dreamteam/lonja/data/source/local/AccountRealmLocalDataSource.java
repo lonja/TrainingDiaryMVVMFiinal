@@ -1,24 +1,23 @@
 package su.dreamteam.lonja.data.source.local;
 
 import io.realm.Realm;
-import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Account;
 import su.dreamteam.lonja.data.source.AccountDataSource;
 
-public final class AccountLocalDataSource extends LocalDataSource implements AccountDataSource {
+public final class AccountRealmLocalDataSource extends RealmLocalDataSource implements AccountDataSource {
 
     private Realm mRealm;
 
-    private static AccountLocalDataSource INSTANCE;
+    private static AccountRealmLocalDataSource INSTANCE;
 
-    private AccountLocalDataSource() {
+    private AccountRealmLocalDataSource() {
         mRealm = Realm.getDefaultInstance();
     }
 
-    public static AccountLocalDataSource getInstance() {
+    public static AccountRealmLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new AccountLocalDataSource();
+            INSTANCE = new AccountRealmLocalDataSource();
         }
         return INSTANCE;
     }
@@ -35,11 +34,11 @@ public final class AccountLocalDataSource extends LocalDataSource implements Acc
 
     @Override
     public Observable saveAccount(Account account) {
-        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(account));
+        return executeTransactionAsync(mRealm, realm -> realm.copyToRealmOrUpdate(account));
     }
 
     @Override
     public Observable deleteAccount() {
-        return executeTransactionAsync(realm -> realm.delete(Account.class));
+        return executeTransactionAsync(mRealm, realm -> realm.delete(Account.class));
     }
 }

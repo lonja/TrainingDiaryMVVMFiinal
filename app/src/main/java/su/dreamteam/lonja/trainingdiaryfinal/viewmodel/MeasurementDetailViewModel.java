@@ -24,6 +24,7 @@ import rx.subscriptions.CompositeSubscription;
 import su.dreamteam.lonja.data.DataManager;
 import su.dreamteam.lonja.data.RealmHelper;
 import su.dreamteam.lonja.data.model.Measurement;
+import su.dreamteam.lonja.data.repository.MeasurementsRepository;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.DialogCommentBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.ui.activity.AddEditMeasurementActivity;
@@ -33,7 +34,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MeasurementDetailViewModel extends BaseObservable implements ViewModel {
 
-    private DataManager mDataManager;
+    private MeasurementsRepository mMeasurementsRepo;
 
     private RealmHelper mRealmHelper;
 
@@ -49,13 +50,13 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
 
     private LayoutInflater mInflater;
 
-    public MeasurementDetailViewModel(@NonNull DataManager dataManager,
+    public MeasurementDetailViewModel(@NonNull MeasurementsRepository repository,
                                       @NonNull RealmHelper realmHelper,
                                       String measurementId,
                                       @NonNull Context context,
                                       @NonNull LayoutInflater inflater) {
         mRealmHelper = checkNotNull(realmHelper);
-        mDataManager = checkNotNull(dataManager);
+        mMeasurementsRepo = checkNotNull(repository);
         mContext = checkNotNull(context);
         mInflater = checkNotNull(inflater);
         mMeasurementId = measurementId;
@@ -64,20 +65,21 @@ public class MeasurementDetailViewModel extends BaseObservable implements ViewMo
 
     @Override
     public void subscribe() {
-        Subscription subscription = mDataManager.getMeasurement(mMeasurementId)
+        if (mMeasurementId == null) {
+            startEditing();
+            Measurement newMeasurement = mRealmHelper.createRealmObject(Measurement.class);
+            newMeasurement.setDate(new Date());
+            isNewMeasurement = true;
+            setMeasurement(newMeasurement);
+            return;
+        }
+        Subscription subscription = mMeasurementsRepo.getMeasurement(mMeasurementId)
                 .filter(measurement -> measurement.isLoaded())
                 .first()
                 .doOnNext(measurement -> {
                     isNewMeasurement = false;
                     setMeasurement(measurement);
                     startEditing();
-                })
-                .doOnCompleted(() -> {
-                    startEditing();
-                    Measurement newMeasurement = mRealmHelper.createRealmObject(Measurement.class);
-                    newMeasurement.setDate(new Date());
-                    isNewMeasurement = true;
-                    setMeasurement(newMeasurement);
                 })
                 .doOnError(this::showError)
                 .subscribe();

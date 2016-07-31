@@ -11,18 +11,18 @@ import su.dreamteam.lonja.data.model.Workout;
 import su.dreamteam.lonja.data.source.WorkoutsDataSource;
 
 
-public final class WorkoutsLocalDataSource extends LocalDataSource implements WorkoutsDataSource {
+public final class WorkoutsRealmLocalDataSource extends RealmLocalDataSource implements WorkoutsDataSource {
 
-    private static WorkoutsLocalDataSource INSTANCE;
+    private static WorkoutsRealmLocalDataSource INSTANCE;
     private Realm mRealm;
 
-    private WorkoutsLocalDataSource() {
+    private WorkoutsRealmLocalDataSource() {
         mRealm = Realm.getDefaultInstance();
     }
 
-    public static WorkoutsLocalDataSource getInstance() {
+    public static WorkoutsRealmLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new WorkoutsLocalDataSource();
+            INSTANCE = new WorkoutsRealmLocalDataSource();
         }
         return INSTANCE;
     }
@@ -49,12 +49,12 @@ public final class WorkoutsLocalDataSource extends LocalDataSource implements Wo
 
     @Override
     public Observable saveWorkout(@NonNull Workout workout) {
-        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(workout));
+        return executeTransactionAsync(mRealm, realm -> realm.copyToRealmOrUpdate(workout));
     }
 
     @Override
     public Observable deleteWorkout(@NonNull String trainingId) {
-        return executeTransactionAsync(realm -> realm.where(Workout.class)
+        return executeTransactionAsync(mRealm, realm -> realm.where(Workout.class)
                 .equalTo("id", trainingId)
                 .findFirst()
                 .deleteFromRealm());

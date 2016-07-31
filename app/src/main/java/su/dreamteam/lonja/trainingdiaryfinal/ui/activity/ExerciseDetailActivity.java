@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import su.dreamteam.lonja.data.repository.ExercisesRepository;
-import su.dreamteam.lonja.data.source.local.ExercisesLocalDataSource;
+import su.dreamteam.lonja.data.source.local.ExercisesRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.ExercisePagerAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityExerciseDetailBinding;
@@ -41,7 +41,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         }
 
         mViewModel = new ExerciseDetailViewModel(
-                ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                ExercisesRepository.getInstance(ExercisesRealmLocalDataSource.getInstance()),
                 this,
                 exerciseId
         );

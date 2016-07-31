@@ -9,18 +9,18 @@ import rx.Observable;
 import su.dreamteam.lonja.data.model.MuscleGroup;
 import su.dreamteam.lonja.data.source.MuscleGroupsDataSource;
 
-public final class MuscleGroupsLocalDataSource extends LocalDataSource implements MuscleGroupsDataSource {
+public final class MuscleGroupsRealmLocalDataSource extends RealmLocalDataSource implements MuscleGroupsDataSource {
 
-    private static MuscleGroupsLocalDataSource INSTANCE;
+    private static MuscleGroupsRealmLocalDataSource INSTANCE;
     private Realm mRealm;
 
-    private MuscleGroupsLocalDataSource() {
+    private MuscleGroupsRealmLocalDataSource() {
         mRealm = Realm.getDefaultInstance();
     }
 
-    public static MuscleGroupsLocalDataSource getInstance() {
+    public static MuscleGroupsRealmLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new MuscleGroupsLocalDataSource();
+            INSTANCE = new MuscleGroupsRealmLocalDataSource();
         }
         return INSTANCE;
     }
@@ -82,12 +82,12 @@ public final class MuscleGroupsLocalDataSource extends LocalDataSource implement
 
     @Override
     public Observable saveMuscleGroup(@NonNull MuscleGroup muscleGroup) {
-        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(muscleGroup));
+        return executeTransactionAsync(mRealm, realm -> realm.copyToRealmOrUpdate(muscleGroup));
     }
 
     @Override
     public Observable deleteMuscleGroup(@NonNull String muscleGroupId) {
-        return executeTransactionAsync(realm -> realm.where(MuscleGroup.class)
+        return executeTransactionAsync(mRealm, realm -> realm.where(MuscleGroup.class)
                 .equalTo("id", muscleGroupId)
                 .findFirst()
                 .deleteFromRealm());

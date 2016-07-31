@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import io.realm.RealmResults;
 import rx.Observable;
-import su.dreamteam.lonja.data.model.Training;
+import su.dreamteam.lonja.data.model.Workout;
 import su.dreamteam.lonja.data.source.TrainingsDataSource;
 
 public class TrainingsRepository implements TrainingsDataSource {
@@ -25,17 +25,17 @@ public class TrainingsRepository implements TrainingsDataSource {
     }
 
     @Override
-    public Observable<RealmResults<Training>> getTrainings() {
+    public Observable<RealmResults<Workout>> getTrainings() {
         return mLocalDataSource.getTrainings();
     }
 
     @Override
-    public Observable<Training> getTraining(String trainingId) {
+    public Observable<Workout> getTraining(String trainingId) {
         return mLocalDataSource.getTraining(trainingId);
     }
 
     @Override
-    public Observable saveTraining(@NonNull Training training) {
+    public Observable saveTraining(@NonNull Workout training) {
         return mLocalDataSource.saveTraining(training);
     }
 

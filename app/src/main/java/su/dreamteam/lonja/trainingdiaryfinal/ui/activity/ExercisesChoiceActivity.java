@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import java.util.Collections;
 
 import su.dreamteam.lonja.data.repository.ExercisesRepository;
-import su.dreamteam.lonja.data.source.local.ExercisesLocalDataSource;
+import su.dreamteam.lonja.data.source.local.ExercisesRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.ExercisesAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityExercisesChoiceBinding;
@@ -43,7 +43,7 @@ public class ExercisesChoiceActivity extends AppCompatActivity {
                 true);
 
         mViewModel = new ExercisesChoiceViewModel(
-                ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                ExercisesRepository.getInstance(ExercisesRealmLocalDataSource.getInstance()),
                 adapter,
                 this
         );

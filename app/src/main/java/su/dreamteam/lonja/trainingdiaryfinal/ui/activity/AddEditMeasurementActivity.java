@@ -6,10 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
-import su.dreamteam.lonja.data.DataManager;
 import su.dreamteam.lonja.data.RealmHelper;
-import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
-import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.data.repository.MeasurementsRepository;
+import su.dreamteam.lonja.data.source.local.MeasurementsRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityAddEditMeasurementBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.MeasurementDetailViewModel;
@@ -37,9 +36,8 @@ public class AddEditMeasurementActivity extends AppCompatActivity {
 
         RealmHelper helper = RealmHelper.getInstance(this);
         mViewModel = new MeasurementDetailViewModel(
-                DataManager.getInstance(
-                        MeasurementsLocalDataSource.getInstance(),
-                        AccountLocalDataSource.getInstance()
+                MeasurementsRepository.getInstance(
+                        MeasurementsRealmLocalDataSource.getInstance()
                 ),
                 helper,
                 measurementId,
@@ -53,11 +51,7 @@ public class AddEditMeasurementActivity extends AppCompatActivity {
             mViewModel.doneEditing();
             finish();
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         mViewModel.subscribe();
     }
 
@@ -75,8 +69,8 @@ public class AddEditMeasurementActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         mViewModel.unsubscribe();
     }
 }

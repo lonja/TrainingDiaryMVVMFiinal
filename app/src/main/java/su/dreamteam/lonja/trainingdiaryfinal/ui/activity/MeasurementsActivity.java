@@ -17,8 +17,8 @@ import android.view.MenuItem;
 import java.util.Collections;
 
 import su.dreamteam.lonja.data.DataManager;
-import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
-import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.data.source.local.AccountRealmLocalDataSource;
+import su.dreamteam.lonja.data.source.local.MeasurementsRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.MeasurementsAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityMeasurementsBinding;
@@ -48,8 +48,8 @@ public class MeasurementsActivity extends AppCompatActivity
 
         mViewModel = new MeasurementsViewModel(
                 DataManager.getInstance(
-                        MeasurementsLocalDataSource.getInstance(),
-                        AccountLocalDataSource.getInstance()),
+                        MeasurementsRealmLocalDataSource.getInstance(),
+                        AccountRealmLocalDataSource.getInstance()),
                 this,
                 adapter);
 

@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import su.dreamteam.lonja.data.DataManager;
-import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
-import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.data.source.local.AccountRealmLocalDataSource;
+import su.dreamteam.lonja.data.source.local.MeasurementsRealmLocalDataSource;
 
 public class AccountCheckActivity extends Activity {
 
@@ -16,8 +16,8 @@ public class AccountCheckActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDataManager = DataManager.getInstance(MeasurementsLocalDataSource.getInstance(),
-                AccountLocalDataSource.getInstance());
+        mDataManager = DataManager.getInstance(MeasurementsRealmLocalDataSource.getInstance(),
+                AccountRealmLocalDataSource.getInstance());
         mDataManager.getAccount()
                 .doOnNext(account -> {
                     Intent intent = new Intent(this, AccountInfoActivity.class);

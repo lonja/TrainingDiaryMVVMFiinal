@@ -5,15 +5,15 @@ import android.support.annotation.NonNull;
 
 import io.realm.RealmResults;
 import rx.Observable;
-import su.dreamteam.lonja.data.model.Training;
+import su.dreamteam.lonja.data.model.Workout;
 
 public interface TrainingsDataSource {
 
-    Observable<RealmResults<Training>> getTrainings();
+    Observable<RealmResults<Workout>> getTrainings();
 
-    Observable<Training> getTraining(String trainingId);
+    Observable<Workout> getTraining(String trainingId);
 
-    Observable saveTraining(@NonNull Training training);
+    Observable saveTraining(@NonNull Workout training);
 
     Observable deleteTraining(@NonNull String trainingId);
 }

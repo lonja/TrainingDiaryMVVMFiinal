@@ -3,23 +3,27 @@ package su.dreamteam.lonja.data.source.local;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.exceptions.RealmException;
 import rx.Observable;
 import su.dreamteam.lonja.data.model.Exercise;
 import su.dreamteam.lonja.data.source.ExercisesDataSource;
 
-public final class ExercisesLocalDataSource extends LocalDataSource implements ExercisesDataSource {
+public final class ExercisesRealmLocalDataSource extends RealmLocalDataSource implements ExercisesDataSource {
 
-    private static ExercisesLocalDataSource INSTANCE;
+    private Realm mRealm;
 
-    private ExercisesLocalDataSource() {
+    private static ExercisesRealmLocalDataSource INSTANCE;
+
+    private ExercisesRealmLocalDataSource() {
         super();
+        mRealm = Realm.getDefaultInstance();
     }
 
-    public static ExercisesLocalDataSource getInstance() {
+    public static ExercisesRealmLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new ExercisesLocalDataSource();
+            INSTANCE = new ExercisesRealmLocalDataSource();
         }
         return INSTANCE;
     }
@@ -71,12 +75,12 @@ public final class ExercisesLocalDataSource extends LocalDataSource implements E
 
     @Override
     public Observable saveExercise(@NonNull Exercise exercise) {
-        return executeTransactionAsync(realm -> realm.copyToRealmOrUpdate(exercise));
+        return executeTransactionAsync(mRealm, realm -> realm.copyToRealmOrUpdate(exercise));
     }
 
     @Override
     public Observable deleteExercise(@NonNull String exerciseId) {
-        return executeTransactionAsync(realm -> realm.where(Exercise.class)
+        return executeTransactionAsync(mRealm, realm -> realm.where(Exercise.class)
                 .equalTo("id", exerciseId)
                 .findFirst()
                 .deleteFromRealm());

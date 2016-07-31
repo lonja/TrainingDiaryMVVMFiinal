@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import java.util.Collections;
 
 import su.dreamteam.lonja.data.repository.ExercisesRepository;
-import su.dreamteam.lonja.data.source.local.ExercisesLocalDataSource;
+import su.dreamteam.lonja.data.source.local.ExercisesRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.adapter.ExercisesAdapter;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ActivityExercisesBinding;
@@ -47,7 +47,7 @@ public class ExercisesActivity extends AppCompatActivity implements NavigationVi
                 true);
 
         mViewModel = new ExercisesViewModel(
-                ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                ExercisesRepository.getInstance(ExercisesRealmLocalDataSource.getInstance()),
                 adapter,
                 this
         );
