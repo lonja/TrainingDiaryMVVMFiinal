@@ -13,7 +13,7 @@ import java.util.List;
 import io.realm.RealmResults;
 import su.dreamteam.lonja.data.model.Exercise;
 import su.dreamteam.lonja.data.repository.ExercisesRepository;
-import su.dreamteam.lonja.data.source.local.ExercisesLocalDataSource;
+import su.dreamteam.lonja.data.source.local.ExercisesRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemExerciseBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemExerciseCheckableBinding;
@@ -57,12 +57,12 @@ public class ExercisesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ExerciseViewHolder) {
             ExerciseItemViewModel viewModel = new ExerciseItemViewModel(mContext,
-                    ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                    ExercisesRepository.getInstance(ExercisesRealmLocalDataSource.getInstance()),
                     mExercises.get(position));
             ((ExerciseViewHolder) holder).binding.setViewModel(viewModel);
         } else if (holder instanceof ExerciseChoiceViewHolder) {
             ExerciseChoiceViewModel viewModel = new ExerciseChoiceViewModel(mContext,
-                    ExercisesRepository.getInstance(ExercisesLocalDataSource.getInstance()),
+                    ExercisesRepository.getInstance(ExercisesRealmLocalDataSource.getInstance()),
                     mExercises.get(position));
             ((ExerciseChoiceViewHolder) holder).binding.setViewModel(viewModel);
         }

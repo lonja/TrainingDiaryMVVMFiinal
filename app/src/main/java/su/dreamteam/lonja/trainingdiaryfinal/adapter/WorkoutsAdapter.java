@@ -13,7 +13,7 @@ import java.util.List;
 import io.realm.RealmResults;
 import su.dreamteam.lonja.data.model.Workout;
 import su.dreamteam.lonja.data.repository.WorkoutsRepository;
-import su.dreamteam.lonja.data.source.local.WorkoutsLocalDataSource;
+import su.dreamteam.lonja.data.source.local.WorkoutsRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemTrainingBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.WorkoutItemViewModel;
@@ -39,7 +39,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
     @Override
     public void onBindViewHolder(WorkoutsAdapter.WorkoutViewHolder holder, int position) {
         WorkoutItemViewModel viewModel = new WorkoutItemViewModel(mContext,
-                WorkoutsRepository.getInstance(WorkoutsLocalDataSource.getInstance()));
+                WorkoutsRepository.getInstance(WorkoutsRealmLocalDataSource.getInstance()));
         holder.binding.setViewModel(viewModel);
     }
 

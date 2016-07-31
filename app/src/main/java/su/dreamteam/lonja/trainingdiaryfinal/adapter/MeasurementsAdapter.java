@@ -13,8 +13,8 @@ import java.util.List;
 import io.realm.RealmResults;
 import su.dreamteam.lonja.data.DataManager;
 import su.dreamteam.lonja.data.model.Measurement;
-import su.dreamteam.lonja.data.source.local.AccountLocalDataSource;
-import su.dreamteam.lonja.data.source.local.MeasurementsLocalDataSource;
+import su.dreamteam.lonja.data.source.local.AccountRealmLocalDataSource;
+import su.dreamteam.lonja.data.source.local.MeasurementsRealmLocalDataSource;
 import su.dreamteam.lonja.trainingdiaryfinal.R;
 import su.dreamteam.lonja.trainingdiaryfinal.databinding.ItemMeasurementBinding;
 import su.dreamteam.lonja.trainingdiaryfinal.viewmodel.MeasurementItemViewModel;
@@ -41,8 +41,8 @@ public class MeasurementsAdapter extends RecyclerView.Adapter<MeasurementsAdapte
     public void onBindViewHolder(MeasurementViewHolder holder, int position) {
         MeasurementItemViewModel viewModel = new MeasurementItemViewModel(
                 mContext,
-                DataManager.getInstance(MeasurementsLocalDataSource.getInstance(),
-                        AccountLocalDataSource.getInstance()),
+                DataManager.getInstance(MeasurementsRealmLocalDataSource.getInstance(),
+                        AccountRealmLocalDataSource.getInstance()),
                 mMeasurements.get(position));
 
         holder.binding.setViewModel(viewModel);
