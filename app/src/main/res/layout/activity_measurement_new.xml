@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="su.dreamteam.lonja.trainingdiaryfinal.viewmodel.MeasurementDetailViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:title="@{viewModel.newMeasurement ? @string/measurement_new : @string/measurement_edit}"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            </android.support.v7.widget.Toolbar>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="72dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:id="@+id/layout_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true">
+
+                    <ImageView
+                        android:id="@+id/image_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/calendar_clock" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/image_time"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@{viewModel.measurement.date}" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_time"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/image_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/message_text_outline" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/image_comment"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/no_comment" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_edit_measurement_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/check" />
+
+        <!--<include-->
+        <!--layout="@layout/content_measurement"-->
+        <!--bind:viewModel="@{viewModel}" />-->
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
